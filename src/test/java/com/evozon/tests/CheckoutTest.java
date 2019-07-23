@@ -3,12 +3,16 @@ package com.evozon.tests;
 import com.evozon.model.BillingInformation;
 import com.evozon.model.ShippingInformation;
 import com.evozon.steps.serenity.CheckoutSteps;
+import com.evozon.steps.serenity.LoginSteps;
+import com.evozon.utils.Constants;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+
+import java.util.concurrent.TimeUnit;
 
 @RunWith(SerenityRunner.class)
 
@@ -20,11 +24,17 @@ public class CheckoutTest {
     @Steps
     public CheckoutSteps checkoutSteps;
 
+    @Steps
+    public LoginSteps loginSteps;
+
+
     @Test
     public void checkoutTest() {
-
+        webdriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        loginSteps.openHomepage();
+        loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        checkoutSteps.goToCheckoutPage();
         BillingInformation billInfo = checkoutSteps.countryBillingInformation();
-        ShippingInformation shipInfo = checkoutSteps.shippingInformation();
         billInfo.getFirstName();
         billInfo.getLastname();
         billInfo.getAddress();
@@ -34,6 +44,7 @@ public class CheckoutTest {
         billInfo.getPhoneNumber();
         checkoutSteps.clickContinueShipping();
         checkoutSteps.clickEditShipping();
+        ShippingInformation shipInfo = checkoutSteps.shippingInformation();
         shipInfo.getFirstName();
         shipInfo.getLastName();
         shipInfo.getAddress();

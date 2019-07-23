@@ -38,7 +38,7 @@ public class CheckoutPage extends PageObject {
     @FindBy(id = "billing:telephone")
     private WebElementFacade billingTelephoneField;
 
-    @FindBy(css = "#billing-buttons-container .button")
+    @FindBy(css = "#billing-buttons-container >button")
     private WebElementFacade continueShippingbutton;
 
     @FindBy(css = "#opc-shipping div.step-title a")
@@ -127,10 +127,13 @@ public class CheckoutPage extends PageObject {
     }
 
     public void typeShippingFirstName(String firstName){
+        shippingFirstNameField.waitUntilVisible();
+        shippingFirstNameField.clear();
         shippingFirstNameField.type(firstName);
     }
 
     public void typeShippingLastName(String lastName){
+        shippingLastName.clear();
         shippingLastName.type(lastName);
     }
 

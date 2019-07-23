@@ -11,21 +11,22 @@ public class CheckoutSteps {
 
     CheckoutPage checkoutPage;
 
+
+    @Step
+    public void goToCheckoutPage(){
+        checkoutPage.open();
+    }
+
     @Step
     public BillingInformation countryBillingInformation(){
-        try {
-            wait(15000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        checkoutPage.open();
         BillingInformation billingInformation = new BillingInformation();
-        String firstName= RandomStringUtils.random(10);
-        String lastName = RandomStringUtils.random(5);
-        String address = RandomStringUtils.random(10);
-        String city = RandomStringUtils.random(5);
-        String postalCode = RandomStringUtils.random(7);
+        String firstName= RandomStringUtils.randomAlphabetic(10);
+        String lastName = RandomStringUtils.randomAlphabetic(5);
+        String address = RandomStringUtils.randomAlphabetic(10);
+        String city = RandomStringUtils.randomAlphabetic(5);
+        String postalCode = RandomStringUtils.randomNumeric(7);
         String telephone = RandomStringUtils.randomNumeric(10);
+
 
         checkoutPage.typeBillingFirstName(firstName);
         checkoutPage.typeBillingLastName(lastName);
@@ -56,12 +57,14 @@ public class CheckoutSteps {
     @Step
     public ShippingInformation shippingInformation(){
         ShippingInformation shippingInformation = new ShippingInformation();
-        String firstName= RandomStringUtils.random(10);
-        String lastName = RandomStringUtils.random(5);
-        String address = RandomStringUtils.random(10);
-        String city = RandomStringUtils.random(5);
-        String postalCode = RandomStringUtils.random(7);
+        String firstName= RandomStringUtils.randomAlphabetic(10);
+        String lastName = RandomStringUtils.randomAlphabetic(5);
+        String address = RandomStringUtils.randomAlphabetic(10);
+        String city = RandomStringUtils.randomAlphabetic(5);
+        String postalCode = RandomStringUtils.randomNumeric(7);
         String telephone = RandomStringUtils.randomNumeric(10);
+
+        System.out.println(telephone);
 
         checkoutPage.typeShippingFirstName(firstName);
         checkoutPage.typeShippingLastName(lastName);
