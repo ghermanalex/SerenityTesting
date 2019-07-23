@@ -4,9 +4,13 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-@DefaultUrl("http://qa1.dev.evozon.com/")
+import java.util.List;
+
+@DefaultUrl("http://qa1.dev.evozon.com/checkout/onepage/")
 public class CheckoutPage extends PageObject {
 
     @FindBy(id = "billing:firstname")
@@ -100,9 +104,9 @@ public class CheckoutPage extends PageObject {
         billingCitiField.type(city);
     }
 
-    public void selectBillingCountry(String country){
+    public void selectBillingCountry(int index){
         Select select = new Select(billingStateDropdown);
-        select.selectByVisibleText(country);
+        select.selectByIndex(index);
     }
 
     public void typeBillingPostalCode(String postalCode){
@@ -142,9 +146,9 @@ public class CheckoutPage extends PageObject {
         shippingPostalCodeField.type(postalCode);
     }
 
-    public void selectShippingCountry(String country){
+    public void selectShippingCountry(int index){
         Select select = new Select(shippingCountryDropdown);
-        select.selectByVisibleText(country);
+        select.selectByIndex(index);
     }
 
     public void typeShippingTelephone(String number){
@@ -155,14 +159,30 @@ public class CheckoutPage extends PageObject {
         continueToShoppingMethodButton.click();
     }
 
-    public void selectPaymentInformation(){
+    public void setShippingInformation(){
         freeShippingRadioButton.waitUntilClickable();
         freeShippingRadioButton.click();
         saveShippingButton.click();
     }
 
+    public void clickContinuePayment(){
+        paymentContinueButton.waitUntilClickable();
+        paymentContinueButton.click();
+    }
 
+    public void clickPlaceOrder(){
+        placeOrderButton.click();
+    }
 
+    public WebElement getCheckoutDetailsContainer(String propertyGroupName){
+        List<WebElement> checkoutDetailsContainers = getDriver().findElements(By.cssSelector("#checkout-step-review dl>div"));
+        for(WebElement checkoutDetailsContainer:checkoutDetailsContainers){
+            if(checkoutDetailsContainer.findElement(By.cssSelector("dt.complete")).getText().toLowerCase().contentEquals(propertyGroupName)){
+                return checkoutDetailsContainer;
+            }
+        }
+        return null;
+    }
 
 
 
