@@ -41,6 +41,8 @@ public class ProductDetailsSteps {
 
 
 
+
+
     @StepGroup
     public void verifyDetailsRandomProduct(){
         ProductEntity randomProductDetails = getDetailsRandomProductFromListingPage();
