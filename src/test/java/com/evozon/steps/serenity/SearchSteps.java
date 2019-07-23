@@ -11,4 +11,9 @@ public class SearchSteps {
         searchPage.typeInSearchField(product);
         searchPage.typeEnterinSearchField();
     }
+
+    @Step
+    public void openHomepage(){
+        searchPage.open();
+    }
 }
