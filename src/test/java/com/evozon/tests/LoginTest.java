@@ -24,7 +24,6 @@ public class LoginTest {
         loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASS);
         loginSteps.checkThatYouAreLoggedIn();
 
-
     }
 
 
