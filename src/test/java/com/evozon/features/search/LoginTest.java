@@ -21,7 +21,7 @@ public class LoginTest {
     @Test
     public void loginValidCredentials(){
         loginSteps.openHomepage();
-        loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASS;
+        loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASS);
         loginSteps.checkThatYouAreLoggedIn();
 
 
