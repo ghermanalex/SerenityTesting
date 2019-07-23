@@ -22,6 +22,6 @@ public class ProductListingTest {
     public void verifiyDetailsRandomProduct() {
         productDetailsSteps.openPageWithProducts();
         productDetailsSteps.verifyDetailsRandomProduct();
-        
+
     }
 }
