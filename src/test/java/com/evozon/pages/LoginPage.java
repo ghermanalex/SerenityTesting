@@ -1,9 +1,12 @@
 package com.evozon.pages;
 
+import com.evozon.utils.Constants;
 import net.thucydides.core.annotations.DefaultUrl;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import net.serenitybdd.core.pages.WebElementFacade;
+
 import java.util.stream.Collectors;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -15,13 +18,13 @@ import java.util.List;
 @DefaultUrl("http://qa1.dev.evozon.com/customer/account/login/")
 public class LoginPage extends PageObject {
 
-    @FindBy(css="form#login-form input[type = 'email']")
+    @FindBy(css = "form#login-form input[type = 'email']")
     private WebElementFacade emailInput;
 
-    @FindBy(css="form#login-form input[type = 'password']")
+    @FindBy(css = "form#login-form input[type = 'password']")
     private WebElementFacade passwordInput;
 
-    @FindBy(css="form#login-form button[type='submit']")
+    @FindBy(css = "form#login-form button[type='submit']")
     private WebElementFacade loginSubmitButton;
 
     public void typeEmail(String email) {
@@ -34,7 +37,13 @@ public class LoginPage extends PageObject {
         passwordInput.type(password);
     }
 
-    public void clickSubmitButton(){
+    public void clickSubmitButton() {
         loginSubmitButton.click();
+    }
+
+    public boolean checkURL(String expectedUrl) {
+        if (expectedUrl.contentEquals(getDriver().getCurrentUrl()))
+            return true;
+        return false;
     }
 }

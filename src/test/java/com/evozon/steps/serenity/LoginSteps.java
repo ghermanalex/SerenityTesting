@@ -16,16 +16,34 @@ public class LoginSteps {
     }
 
     @Step
-    public void performLogin(String email, String password) {
+    public void typeEmail(String email)
+    {
         loginPage.typeEmail(email);
-        loginPage.typePassword(password);
+    }
+
+    @Step
+    public void typePassword(String pass) {
+        loginPage.typePassword(pass);
+    }
+
+    @Step
+    public void clickLoginButton(){
         loginPage.clickSubmitButton();
-        String currentURL =
     }
 
-    public void assertLoggedIn() {
-        Assert.assertTrue(myAccountPage.checkUrl());
+
+    @Step
+    public void performLogin(String email, String password) {
+        typeEmail(email);
+        typePassword(password);
+        clickLoginButton();
 
     }
 
+    @Step
+    public void checkThatYouAreLoggedIn(){
+
+
+        Assert.assertTrue("You are not logged in", myAccountPage.isExpectedUrl(Constants.HOST + "/customer/account/"));
+    }
 }
