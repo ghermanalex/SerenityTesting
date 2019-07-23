@@ -1,4 +1,4 @@
-package com.evozon.features.search;
+package com.evozon.tests;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Issue;

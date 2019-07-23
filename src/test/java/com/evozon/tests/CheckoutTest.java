@@ -1,4 +1,4 @@
-package com.evozon.features.search;
+package com.evozon.tests;
 
 import com.evozon.model.BillingInformation;
 import com.evozon.model.ShippingInformation;

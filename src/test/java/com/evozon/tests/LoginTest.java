@@ -1,6 +1,7 @@
-package com.evozon.features.search;
+package com.evozon.tests;
 
 import com.evozon.steps.serenity.LoginSteps;
+import com.evozon.utils.Constants;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Step;
@@ -18,7 +19,11 @@ public class LoginTest {
     public LoginSteps loginSteps;
 
     @Test
-    public void loginTest(){
+    public void loginValidCredentials(){
+        loginSteps.openHomepage();
+        loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        loginSteps.checkThatYouAreLoggedIn();
+
 
     }
 
