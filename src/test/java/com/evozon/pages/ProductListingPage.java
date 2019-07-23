@@ -21,9 +21,7 @@ public class ProductListingPage extends PageObject {
 
     public ProductEntity getDetailsRandomProduct() {
         Random r = new Random();
-        System.out.println(listAllProducts.size());
         Integer random = r.nextInt(listAllProducts.size() - 1 - 0) + 0;
-        System.out.println(random);
         WebElementFacade randomElementFromList = listAllProducts.get(random);
         String name = randomElementFromList.findElement(By.cssSelector("h2 a")).getText();
         String stringPrice = randomElementFromList.findElement(By.cssSelector(".price")).getText();
