@@ -1,4 +1,4 @@
-package com.evozon.features.search;
+package com.evozon.tests;
 
 import com.evozon.steps.serenity.LoginSteps;
 import com.evozon.utils.Constants;
