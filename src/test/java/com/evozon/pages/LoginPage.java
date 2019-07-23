@@ -12,7 +12,7 @@ import net.thucydides.core.pages.PageObject;
 
 import java.util.List;
 
-@DefaultUrl("http://qa1.dev.evozon.com")
+@DefaultUrl("http://qa1.dev.evozon.com/customer/account/login/")
 public class LoginPage extends PageObject {
 
     @FindBy(css="form#login-form input[type = 'email']")

@@ -4,6 +4,7 @@ import com.evozon.steps.serenity.LoginSteps;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Step;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
@@ -14,6 +15,11 @@ public class LoginTest {
 
     @Step
     public LoginSteps loginSteps;
+
+    @Test
+    public void loginTest(){
+
+    }
 
 
 
