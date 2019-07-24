@@ -32,7 +32,7 @@ public class SearchTest extends BaseTest{
         searchSteps.searchProduct(Constants.INVALID_PRODUCT);
         searchSteps.checkThatResultPageIsShown(Constants.INVALID_PRODUCT);
     }
-    
+
 
 
 }
