@@ -1,6 +1,7 @@
 package com.evozon.tests;
 
 import com.evozon.steps.serenity.SearchSteps;
+import com.evozon.utils.Constants;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -19,7 +20,9 @@ public class SearchTest {
     @Test
     public void searchItem (){
         searchSteps.openHomepage();
-        searchSteps.searchProduct("blouses");
+        searchSteps.searchProduct(Constants.PRODUCT);
+        searchSteps.checkThatResultPageIsShown();
+        searchSteps.checkThatNumberOfItemsIsValid();
 
     }
 
