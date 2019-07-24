@@ -24,6 +24,10 @@ public class ShoppingCartTest extends BaseTest{
         shoppingCartSteps.verfiyDetailsProductInShoppingCart();
     }
 
-
+    @Test
+    public void verifiyProductPriceDependingOnQuantity() {
+        shoppingCartSteps.openProductDetailsPage();
+        shoppingCartSteps.verifyPriceDependinOnRandomQuantity();
+    }
 
 }

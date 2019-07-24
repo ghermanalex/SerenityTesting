@@ -1,6 +1,7 @@
 package com.evozon.pages;
 
 import com.evozon.model.ProductEntity;
+import com.evozon.utils.Utils;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
@@ -29,23 +30,16 @@ public class ProductListingPage extends BasePage {
 
     public ProductEntity getProductEntityFromRandomProduct() {
 
-        setRandom(getRandomElementFromList(listAllProductsWithImage));
+        setRandom(Utils.getRandomElementFromList(listAllProductsWithImage));
         WebElementFacade randomElementFromList = getWebElementFromList(listAllProducts,randomProductPostion);
 
         String name = getNameOfProduct(randomElementFromList,"h2 a");
         Float price = getPriceOfProduct(randomElementFromList,".price");
 
-        ProductEntity randomProduct = new ProductEntity(randomElementFromList, name, price);
+        ProductEntity randomProduct = new ProductEntity( name, price);
 
         return randomProduct;
     }
-
-
-
-    public void clickViewDetailButton(ProductEntity product) {
-        product.getProduct().findElement(By.cssSelector(".actions a")).click();
-    }
-
 
     public void clickOnProductImageToSeeDetails()
     {
@@ -61,7 +55,7 @@ public class ProductListingPage extends BasePage {
 
     public Float getPriceOfProduct(WebElementFacade product, String selector){
         String stringPrice = getChildWebElementFromParentByCssSelector(product,selector).getText();
-        return fromStringToFloat(stringPrice);
+        return Utils.fromStringToFloat(stringPrice);
 
     }
 
