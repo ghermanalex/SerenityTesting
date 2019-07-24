@@ -6,6 +6,7 @@ import com.evozon.pages.ShoppingCartPage;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;
 import org.junit.Assert;
+import org.openqa.selenium.ElementNotSelectableException;
 
 public class ShoppingCartSteps {
     ProductDetailsPage productDetailsPage;
@@ -24,9 +25,13 @@ public class ShoppingCartSteps {
     }
 
     @Step
-    public void selectSizeAndColor(){
-        productDetailsPage.setProductColor();
+    public void selectSize()throws ElementNotSelectableException{
         productDetailsPage.setProductSize();
+    }
+
+    @Step
+    public void selectColor()throws ElementNotSelectableException{
+        productDetailsPage.setProductColor();
     }
 
 
@@ -38,7 +43,7 @@ public class ShoppingCartSteps {
 
     @Step
     public ProductEntity getDetailProductFromShoppingCart(String name){
-        ProductEntity product = shoppingCartPage.getProductFromShoppingCartList(name);
+        ProductEntity product = shoppingCartPage.getProductEntityFromShoppingCartList(name);
         return product;
     }
 
@@ -51,7 +56,12 @@ public class ShoppingCartSteps {
     @StepGroup
     public void verfiyDetailsProductInShoppingCart(){
         ProductEntity productDetails = getDetailProductFromDetailsPage();
-        selectSizeAndColor();
+        if(productDetailsPage.checkProductHasColorOptions())
+            selectColor();
+
+        if(productDetailsPage.checkProductHasSizeOptions())
+            selectSize();
+
         clickAddToCartButton();
         ProductEntity productDetailsFromShoppingCart =getDetailProductFromShoppingCart(productDetails.getName());
         Assert.assertEquals(productDetails.getName().toUpperCase(),productDetailsFromShoppingCart.getName().toUpperCase());
