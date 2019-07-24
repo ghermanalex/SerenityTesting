@@ -10,10 +10,8 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(SerenityRunner.class)
-public class ProductDetailsTest {
+public class ProductDetailsTest extends BaseTest {
 
-    @Managed(uniqueSession = true)
-    public WebDriver webdriver;
 
     @Steps
     public ProductDetailsSteps productDetailsSteps;

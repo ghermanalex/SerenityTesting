@@ -12,28 +12,50 @@ import java.util.List;
 import java.util.Random;
 
 @DefaultUrl("http://qa1.dev.evozon.com/catalogsearch/result/?q=blouses")
-public class ProductListingPage extends PageObject {
+public class ProductListingPage extends BasePage {
 
 
+    private Integer random ;
+
+    //lista cu toate produse impreuna cu imaginea lor
+    @FindBy(css = ".category-products .products-grid li ")
+    private List<WebElementFacade> listAllProductsWithImage;
+
+    //lista de produce fara imagine
     @FindBy(css = "ul.products-grid > li .product-info")
     private List<WebElementFacade> listAllProducts;
 
 
-    public ProductEntity getDetailsRandomProduct() {
-        Random r = new Random();
-        Integer random = r.nextInt(listAllProducts.size() - 1 - 0) + 0;
-        WebElementFacade randomElementFromList = listAllProducts.get(random);
-        String name = randomElementFromList.findElement(By.cssSelector("h2 a")).getText();
-        String stringPrice = randomElementFromList.findElement(By.cssSelector(".price")).getText();
-        StringBuilder strPrice = new StringBuilder(stringPrice);
-        Float integerPrice = Float.valueOf(strPrice.substring(1, strPrice.length() - 1));
-        ProductEntity randomProduct = new ProductEntity(randomElementFromList, name, integerPrice);
+    public ProductEntity getProductEntityFromRandomProduct() {
 
-        //randomElementFromList.findElement(By.cssSelector(".actions a")).click();
+
+
+        Integer randomProductPostion = getRandomElementFromList(listAllProducts);
+        //Setam random ca sa stim pe ce produs sa dam click ca sa vedem detalile
+        setRandom(randomProductPostion);
+        WebElementFacade randomElementFromList = getWebElementFromList(listAllProducts,randomProductPostion);
+
+        String name = getNameOfProduct(randomElementFromList,"h2 a");
+        Float price = getPriceOfProduct(randomElementFromList,".price");
+
+        ProductEntity randomProduct = new ProductEntity(randomElementFromList, name, price);
 
         return randomProduct;
-
     }
+
+
+    public String getNameOfProduct(WebElementFacade product, String selector){
+        return getChildWebElementFromParentByCssSelector(product,selector).getText();
+    }
+
+
+    public Float getPriceOfProduct(WebElementFacade product, String selector){
+        String stringPrice = getChildWebElementFromParentByCssSelector(product,selector).getText();
+        StringBuilder strPrice = new StringBuilder(stringPrice);
+        Float price = Float.valueOf(strPrice.substring(1, strPrice.length() - 1));
+        return price;
+    }
+
 
 
     public void clickViewDetailButton(ProductEntity product) {
@@ -41,4 +63,19 @@ public class ProductListingPage extends PageObject {
     }
 
 
+    public void clickOnProductImageToSeeDetails()
+    {
+        WebElementFacade productElement = getWebElementFromList(listAllProductsWithImage,random);
+        WebElementFacade productImage = getChildWebElementFromParentByCssSelector(productElement,"a");
+        productImage.click();
+
+    }
+
+    public Integer getRandom() {
+        return random;
+    }
+
+    public void setRandom(Integer random) {
+        this.random = random;
+    }
 }
