@@ -2,8 +2,10 @@ package com.evozon.tests;
 
 import com.evozon.model.BillingInformation;
 import com.evozon.model.ShippingInformation;
+import com.evozon.pages.ProductDetailsPage;
 import com.evozon.steps.serenity.CheckoutSteps;
 import com.evozon.steps.serenity.LoginSteps;
+import com.evozon.steps.serenity.RegisterSteps;
 import com.evozon.utils.Constants;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
@@ -16,28 +18,36 @@ import java.util.concurrent.TimeUnit;
 
 @RunWith(SerenityRunner.class)
 
-public class CheckoutTest {
+public class CheckoutTest extends BaseTest {
 
-    @Managed(uniqueSession = true)
-    public WebDriver webdriver;
 
     @Steps
-    public CheckoutSteps checkoutSteps;
+    CheckoutSteps checkoutSteps;
 
     @Steps
-    public LoginSteps loginSteps;
+    LoginSteps loginSteps;
+
+    @Steps
+    RegisterSteps registerSteps;
+
+    @Steps
+    ProductDetailsPage productDetailsPage;
 
 
     @Test
     public void checkoutTest() {
-        webdriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         loginSteps.openHomepage();
+
+        registerSteps.register();
+        loginSteps.performLoginWithNewRegister();
+        //productDetailsPage.
+
         loginSteps.checkThatYouAreLoggedIn(Constants.USER_EMAIL, Constants.USER_PASS);
+
         checkoutSteps.goToCheckoutPage();
         checkoutSteps.billingInformation();
         checkoutSteps.selectBillingCountry();
         checkoutSteps.clickContinueShipping();
-        checkoutSteps.clickEditShipping();
         checkoutSteps.shippingInformation();
         checkoutSteps.selectShippingCountry();
         checkoutSteps.clickContinueToShippingMethod();

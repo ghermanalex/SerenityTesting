@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 
 @DefaultUrl("http://qa1.dev.evozon.com/checkout/onepage/")
-public class CheckoutPage extends PageObject {
+public class CheckoutPage extends BasePage {
 
     @FindBy(id = "billing:firstname")
     private WebElementFacade billingFirstNameField;
@@ -72,19 +72,25 @@ public class CheckoutPage extends PageObject {
     private WebElementFacade continueToShoppingMethodButton;
 
     @FindBy(id = "s_method_freeshipping_freeshipping")
-    private WebElementFacade freeShippingRadioButton;
+    private WebElement freeShippingRadioButton;
+
+    @FindBy(id = "s_method_flatrate_flatrate")
+    private WebElementFacade flatRateShippingRadioButton;
 
     @FindBy(css = "#shipping-method-buttons-container .button")
     private WebElementFacade saveShippingButton;
 
     @FindBy(css = "#payment-buttons-container .button")
-    private WebElementFacade paymentContinueButton;
+    private WebElement paymentContinueButton;
 
     @FindBy(css = ".button.btn-checkout")
     private WebElementFacade placeOrderButton;
 
     @FindBy(css = "page-title")
     private WebElementFacade orderConfirmMsg;
+
+    @FindBy(css = "#billing-address-select :last-child")
+    private WebElementFacade newAddress;
 
     public void typeBillingFirstName(String firstName){
         billingTelephoneField.clear();
@@ -163,13 +169,16 @@ public class CheckoutPage extends PageObject {
     }
 
     public void setShippingInformation(){
-        freeShippingRadioButton.waitUntilClickable();
-        freeShippingRadioButton.click();
+        waitForElementToBeVisible(15, freeShippingRadioButton);
+        if (freeShippingRadioButton.isSelected()){
+            saveShippingButton.click();
+        }else {flatRateShippingRadioButton.click();
         saveShippingButton.click();
+        }
     }
 
     public void clickContinuePayment(){
-        paymentContinueButton.waitUntilClickable();
+        waitForElementToBeVisibleAndThenInvisible(20,paymentContinueButton);
         paymentContinueButton.click();
     }
 
