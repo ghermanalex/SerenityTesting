@@ -4,6 +4,7 @@ import com.evozon.pages.LoginPage;
 import com.evozon.pages.MyAccountPage;
 import com.evozon.utils.Constants;
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.StepGroup;
 import org.junit.Assert;
 
 public class LoginSteps {
@@ -32,18 +33,10 @@ public class LoginSteps {
     }
 
 
-    @Step
-    public void performLogin(String email, String password) {
+    @StepGroup
+    public void checkThatYouAreLoggedIn(String email, String password) {
         typeEmail(email);
         typePassword(password);
         clickLoginButton();
-
-    }
-
-    @Step
-    public void checkThatYouAreLoggedIn(){
-
-
-        Assert.assertTrue("You are not logged in", myAccountPage.isExpectedUrl(Constants.HOST + "/customer/account/"));
-    }
+        Assert.assertTrue("You are not logged in", myAccountPage.isExpectedUrl(Constants.HOST + "/customer/account/"));    }
 }

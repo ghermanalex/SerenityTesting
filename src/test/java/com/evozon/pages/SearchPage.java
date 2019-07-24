@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @DefaultUrl("http://qa1.dev.evozon.com")
-public class SearchPage extends PageObject {
+public class SearchPage extends BasePage {
 
     @FindBy(css="div #search")
     private WebElementFacade searchInput;

@@ -11,9 +11,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(SerenityRunner.class)
-public class LoginTest {
-    @Managed(uniqueSession = true)
-    public WebDriver webdriver;
+public class LoginTest extends BaseTest {
 
     @Steps
     public LoginSteps loginSteps;
@@ -21,8 +19,8 @@ public class LoginTest {
     @Test
     public void loginValidCredentials(){
         loginSteps.openHomepage();
-        loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASS);
-        loginSteps.checkThatYouAreLoggedIn();
+        setup();
+        loginSteps.checkThatYouAreLoggedIn(Constants.USER_EMAIL, Constants.USER_PASS);
 
     }
 

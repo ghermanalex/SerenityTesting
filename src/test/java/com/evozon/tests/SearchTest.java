@@ -10,21 +10,29 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(SerenityRunner.class)
-public class SearchTest {
-    @Managed(uniqueSession = true)
-    public WebDriver webdriver;
+public class SearchTest extends BaseTest{
 
     @Steps
     public SearchSteps searchSteps;
 
     @Test
-    public void searchItem (){
+    public void searchValidItem (){
         searchSteps.openHomepage();
-        searchSteps.searchProduct(Constants.PRODUCT);
-        searchSteps.checkThatResultPageIsShown();
+        setup();
+        searchSteps.searchProduct(Constants.VALID_PRODUCT);
+        searchSteps.checkThatResultPageIsShown(Constants.VALID_PRODUCT);
         searchSteps.checkThatNumberOfItemsIsValid();
 
     }
+
+    @Test
+    public void searchInvalidItem() {
+        searchSteps.openHomepage();
+        setup();
+        searchSteps.searchProduct(Constants.INVALID_PRODUCT);
+        searchSteps.checkThatResultPageIsShown(Constants.INVALID_PRODUCT);
+    }
+    
 
 
 }

@@ -32,7 +32,7 @@ public class CheckoutTest {
     public void checkoutTest() {
         webdriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         loginSteps.openHomepage();
-        loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        loginSteps.checkThatYouAreLoggedIn(Constants.USER_EMAIL, Constants.USER_PASS);
         checkoutSteps.goToCheckoutPage();
         checkoutSteps.billingInformation();
         checkoutSteps.selectBillingCountry();

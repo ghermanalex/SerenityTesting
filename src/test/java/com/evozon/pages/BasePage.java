@@ -23,6 +23,14 @@ public class BasePage extends PageObject {
         return element.find(By.cssSelector(cssSelector));
     }
 
+    public boolean isExpectedUrl(String expectedUrl)
+    {
+        if(getDriver().getCurrentUrl().toLowerCase().contentEquals(expectedUrl.toLowerCase())) {
+            return true;
+        }
+        return false;
+    }
+
 
 
 
