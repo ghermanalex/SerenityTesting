@@ -1,14 +1,20 @@
 package com.evozon.steps.serenity;
 
+import com.evozon.model.RegisterData;
+import com.evozon.model.RegisterInformation;
 import com.evozon.pages.LoginPage;
 import com.evozon.pages.MyAccountPage;
 import com.evozon.utils.Constants;
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.StepGroup;
 import org.junit.Assert;
 
 public class LoginSteps {
     LoginPage loginPage;
     MyAccountPage myAccountPage;
+
+    RegisterInformation registerInformation;
+    RegisterData registerData = new RegisterData();
 
     @Step
     public void openHomepage(){
@@ -32,8 +38,9 @@ public class LoginSteps {
     }
 
 
-    @Step
+    @StepGroup
     public void performLogin(String email, String password) {
+        //registerInformation = registerData.setRegisterInformation();
         typeEmail(email);
         typePassword(password);
         clickLoginButton();
@@ -45,5 +52,13 @@ public class LoginSteps {
 
 
         Assert.assertTrue("You are not logged in", myAccountPage.isExpectedUrl(Constants.HOST + "/customer/account/"));
+    }
+
+    @StepGroup
+    public void performLoginWithNewRegister() {
+        typeEmail(registerInformation.getEmailAddress());
+        typePassword(registerInformation.getPassword());
+        clickLoginButton();
+
     }
 }

@@ -6,7 +6,6 @@ import com.evozon.model.ShippingData;
 import com.evozon.model.ShippingInformation;
 import com.evozon.pages.CheckoutPage;
 import net.thucydides.core.annotations.Step;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Assert;
 
 public class CheckoutSteps {
@@ -26,7 +25,6 @@ public class CheckoutSteps {
     @Step
     public void billingInformation(){
         billingInformation = billingData.setBillingInformation();
-        System.out.println(billingInformation.getFirstName() + " working, I guess?? " + billingInformation.getLastname());
 
         checkoutPage.typeBillingFirstName(billingInformation.getFirstName());
         checkoutPage.typeBillingLastName(billingInformation.getLastname());
@@ -40,7 +38,6 @@ public class CheckoutSteps {
     @Step
     public void selectBillingCountry(){
         checkoutPage.selectBillingCountry(5);
-        System.out.println(billingInformation.getFirstName() + " working, I guess " + billingInformation.getLastname());
     }
 
     @Step
@@ -48,10 +45,6 @@ public class CheckoutSteps {
         checkoutPage.clickContinueShippingButton();
     }
 
-    @Step
-    public void clickEditShipping(){
-        checkoutPage.clickOnEditShippingInformation();
-    }
 
     @Step
     public void shippingInformation(){
@@ -65,6 +58,7 @@ public class CheckoutSteps {
         checkoutPage.typeShippingTelephone(shippingInformation.getPhoneNumber());
 
     }
+
 
     @Step
     public void selectShippingCountry(){
