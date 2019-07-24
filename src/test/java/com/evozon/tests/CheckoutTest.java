@@ -3,9 +3,7 @@ package com.evozon.tests;
 import com.evozon.model.BillingInformation;
 import com.evozon.model.ShippingInformation;
 import com.evozon.pages.ProductDetailsPage;
-import com.evozon.steps.serenity.CheckoutSteps;
-import com.evozon.steps.serenity.LoginSteps;
-import com.evozon.steps.serenity.RegisterSteps;
+import com.evozon.steps.serenity.*;
 import com.evozon.utils.Constants;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
@@ -31,30 +29,33 @@ public class CheckoutTest extends BaseTest {
     RegisterSteps registerSteps;
 
     @Steps
-    ProductDetailsPage productDetailsPage;
+    ProductDetailsSteps productDetailsSteps;
+
+    @Steps
+    SearchSteps searchSteps;
+
+    @Steps
+    ShoppingCartSteps shoppingCartSteps;
 
 
     @Test
     public void checkoutTest() {
-        loginSteps.openHomepage();
-
         registerSteps.register();
-        loginSteps.performLoginWithNewRegister();
-        //productDetailsPage.
-
-        loginSteps.checkThatYouAreLoggedIn(Constants.USER_EMAIL, Constants.USER_PASS);
-
+        searchSteps.searchProduct(Constants.VALID_PRODUCT);
+        productDetailsSteps.verifyDetailsRandomProduct();
+        shoppingCartSteps.verfiyDetailsProductInShoppingCart();
         checkoutSteps.goToCheckoutPage();
         checkoutSteps.billingInformation();
         checkoutSteps.selectBillingCountry();
+        checkoutSteps.clickShipToDifferentAddress();
         checkoutSteps.clickContinueShipping();
         checkoutSteps.shippingInformation();
         checkoutSteps.selectShippingCountry();
         checkoutSteps.clickContinueToShippingMethod();
         checkoutSteps.setShippingMethod();
         checkoutSteps.clickContinuePayment();
+        checkoutSteps.verifyCheckoutDetails();
         checkoutSteps.placeOrder();
-        //checkoutSteps.checkPropertyValue("SHIPPING ADDRESS",billInfo.getFirstName());
 
 
 

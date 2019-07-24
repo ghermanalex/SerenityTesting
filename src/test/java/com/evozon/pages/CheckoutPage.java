@@ -5,6 +5,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -41,8 +42,11 @@ public class CheckoutPage extends BasePage {
     @FindBy(css = "#billing-buttons-container >button")
     private WebElementFacade continueShippingbutton;
 
+    @FindBy(css = "[title='Ship to different address']")
+    private WebElementFacade shipToDifferentAddressRadioButton;
+
     @FindBy(css = "#opc-shipping div.step-title a")
-    private WebElementFacade editShippingInformationButton;
+    private WebElement editShippingInformationButton;
 
     @FindBy(id = "shipping:firstname")
     private WebElementFacade shippingFirstNameField;
@@ -65,7 +69,7 @@ public class CheckoutPage extends BasePage {
     @FindBy(id = "shipping:country_id")
     private WebElementFacade shippingCountryDropdown;
 
-    @FindBy (id = "shipping:telephone")
+    @FindBy(id = "shipping:telephone")
     private WebElementFacade shippingTelephoneNumber;
 
     @FindBy(css = "#shipping-buttons-container .button")
@@ -84,7 +88,7 @@ public class CheckoutPage extends BasePage {
     private WebElement paymentContinueButton;
 
     @FindBy(css = ".button.btn-checkout")
-    private WebElementFacade placeOrderButton;
+    private WebElement placeOrderButton;
 
     @FindBy(css = "page-title")
     private WebElementFacade orderConfirmMsg;
@@ -92,110 +96,142 @@ public class CheckoutPage extends BasePage {
     @FindBy(css = "#billing-address-select :last-child")
     private WebElementFacade newAddress;
 
-    public void typeBillingFirstName(String firstName){
+    @FindBy(css = ".sp-methods label")
+    private WebElementFacade notClickableShippingRate;
+
+    public void typeBillingFirstName(String firstName) {
         billingTelephoneField.clear();
         billingFirstNameField.type(firstName);
     }
 
-    public void typeBillingLastName(String lastName){
+    public void typeBillingLastName(String lastName) {
         billingTelephoneField.clear();
         billingLastNameField.type(lastName);
     }
 
-    public void typeBillingAddress(String address){
+    public void typeBillingAddress(String address) {
         billingAddressField.type(address);
     }
 
-    public void typeBillingCity(String city){
+    public void typeBillingCity(String city) {
         billingCitiField.type(city);
     }
 
-    public void selectBillingCountry(int index){
+    public void selectBillingCountry(int index) {
         Select select = new Select(billingStateDropdown);
         select.selectByIndex(index);
     }
 
-    public void typeBillingPostalCode(String postalCode){
+    public void typeBillingPostalCode(String postalCode) {
         billingPostalCodeField.type(postalCode);
     }
 
-    public void typeBillingTelephone(String number){
+    public void typeBillingTelephone(String number) {
         billingTelephoneField.type(number);
     }
 
-    public void clickContinueShippingButton(){
+    public void clickContinueShippingButton() {
         continueShippingbutton.click();
     }
 
-    public void clickOnEditShippingInformation(){
-        editShippingInformationButton.waitUntilClickable();
+    public void clickShipToDifferentAddress(){
+        shipToDifferentAddressRadioButton.click();
+    }
+
+    public void clickOnEditShippingInformation() {
+        waitForElementToBeClickable(100, editShippingInformationButton);
         editShippingInformationButton.click();
     }
 
-    public void typeShippingFirstName(String firstName){
-        shippingFirstNameField.waitUntilVisible();
-        shippingFirstNameField.clear();
-        shippingFirstNameField.type(firstName);
+
+    public void typeShippingFirstName(String firstName) {
+        boolean textWasEntered = false;
+        while (!textWasEntered) {
+            try {
+                shippingFirstNameField.clear();
+                shippingFirstNameField.type(firstName);
+                textWasEntered = true;
+                break;
+            } catch (ElementNotInteractableException e) {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException z) {
+                    continue;
+                }
+            }
+        }
+
     }
 
-    public void typeShippingLastName(String lastName){
+    public void typeShippingLastName(String lastName) {
         shippingLastName.clear();
         shippingLastName.type(lastName);
     }
 
-    public void typeShippingAddress(String address){
+    public void typeShippingAddress(String address) {
         shippingAddressField.type(address);
     }
 
-    public void typeShippingCityField(String city){
+    public void typeShippingCityField(String city) {
         shippingCityField.type(city);
     }
 
-    public void typeShippingPostal(String postalCode){
+    public void typeShippingPostal(String postalCode) {
         shippingPostalCodeField.type(postalCode);
     }
 
-    public void selectShippingCountry(int index){
+    public void selectShippingCountry(int index) {
         Select select = new Select(shippingCountryDropdown);
         select.selectByIndex(index);
     }
 
-    public void typeShippingTelephone(String number){
+    public void typeShippingTelephone(String number) {
         shippingTelephoneNumber.type(number);
     }
 
-    public void clickContinueToShippingMethod(){
+    public void clickContinueToShippingMethod() {
         continueToShoppingMethodButton.click();
     }
 
-    public void setShippingInformation(){
-        waitForElementToBeVisible(15, freeShippingRadioButton);
-        if (freeShippingRadioButton.isSelected()){
-            saveShippingButton.click();
-        }else {flatRateShippingRadioButton.click();
+    public void setShippingInformation() {
+        waitForElementToBeVisible(15, notClickableShippingRate);
         saveShippingButton.click();
-        }
+//        if (freeShippingRadioButton.isSelected()) {
+//            saveShippingButton.click();
+//        } else if(!freeShippingRadioButton.isSelected()){
+//            flatRateShippingRadioButton.click();
+//            saveShippingButton.click();
+//        }else if (notClickableShippingRate.getText().toLowerCase().contains("Fixed".toLowerCase())){
+//            saveShippingButton.click();
+//        }
     }
 
-    public void clickContinuePayment(){
-        waitForElementToBeVisibleAndThenInvisible(20,paymentContinueButton);
+    public void clickContinuePayment() {
+        waitForElementToBeVisibleAndThenInvisible(20, paymentContinueButton);
         paymentContinueButton.click();
     }
 
-    public void clickPlaceOrder(){
+    public void clickPlaceOrder() {
+        element(placeOrderButton).waitUntilVisible();
         placeOrderButton.click();
     }
 
-    public WebElement getCheckoutDetailsContainer(String propertyGroupName){
-        List<WebElement> checkoutDetailsContainers = getDriver().findElements(By.cssSelector("#checkout-step-review dl>div"));
-        for(WebElement checkoutDetailsContainer:checkoutDetailsContainers){
-            if(checkoutDetailsContainer.findElement(By.cssSelector("dt.complete")).getText().toLowerCase().contentEquals(propertyGroupName)){
-                return checkoutDetailsContainer;
+    public WebElement getCheckoutDetailsContainer(String propertyGroup) {
+        List<WebElement> checkoutDetailsContainers = getDriver().findElements(By.cssSelector(".block-content>dl div"));
+        System.out.println("list size is "+ checkoutDetailsContainers.size());
+        for (WebElement checkoutDetailsContainer : checkoutDetailsContainers) {
+            System.out.println(checkoutDetailsContainer.findElement(By.cssSelector("dt.complete")).getText());
+            if (checkoutDetailsContainer.findElement(By.cssSelector("dt.complete")).getText().toLowerCase().contains(propertyGroup.toLowerCase())) {
+                         return checkoutDetailsContainer;
             }
         }
         return null;
     }
 
+    public boolean checkConfirmMessage(String message){
+        if (orderConfirmMsg.getText().trim().toLowerCase().contentEquals(message.toLowerCase()));
+            return true;
 
+    }
 
 }

@@ -1,11 +1,12 @@
-package com.evozon.model;
+package com.evozon.Factory;
 
+import com.evozon.model.ShippingInformation;
 import org.apache.commons.lang3.RandomStringUtils;
 
-public class ShippingData {
+public class ShippingInformationFactory {
 
+    public static ShippingInformation getShippingInformationInstance(){
 
-    public ShippingInformation setShippingInformation() {
         ShippingInformation shippingInformation = new ShippingInformation();
         shippingInformation.setFirstName(RandomStringUtils.randomAlphabetic(10));
         shippingInformation.setLastName(RandomStringUtils.randomAlphabetic(5));
@@ -13,8 +14,6 @@ public class ShippingData {
         shippingInformation.setCity(RandomStringUtils.randomAlphabetic(5));
         shippingInformation.setPostalCode(RandomStringUtils.randomNumeric(7));
         shippingInformation.setPhoneNumber(RandomStringUtils.randomNumeric(10));
-
         return shippingInformation;
     }
-
 }

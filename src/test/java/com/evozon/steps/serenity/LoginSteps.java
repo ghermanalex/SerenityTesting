@@ -5,6 +5,7 @@ import com.evozon.model.RegisterInformation;
 import com.evozon.pages.LoginPage;
 import com.evozon.pages.MyAccountPage;
 import com.evozon.utils.Constants;
+import net.serenitybdd.core.SerenitySystemProperties;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;
 import org.junit.Assert;
@@ -56,6 +57,7 @@ public class LoginSteps {
 
     @StepGroup
     public void performLoginWithNewRegister() {
+        openHomepage();
         typeEmail(registerInformation.getEmailAddress());
         typePassword(registerInformation.getPassword());
         clickLoginButton();

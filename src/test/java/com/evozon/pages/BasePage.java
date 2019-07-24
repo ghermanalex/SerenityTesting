@@ -34,6 +34,10 @@ public class BasePage extends PageObject {
         WebDriverWait wait = new WebDriverWait(getDriver(), seconds);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
+    public void waitForElementToBeClickable(int seconds, WebElement element){
+        WebDriverWait wait = new WebDriverWait(getDriver(), seconds);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
     public void waitForElementToBeVisibleAndThenInvisible(int seconds, WebElement element){
         WebDriverWait wait = new WebDriverWait(getDriver(), seconds);
         try{
@@ -79,6 +83,7 @@ public class BasePage extends PageObject {
         else return 0;
     }
     
+
 
 
 
