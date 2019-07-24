@@ -19,7 +19,7 @@ public class ProductDetailsSteps {
 
     @Step
     public ProductEntity getDetailsRandomProductFromListingPage() {
-        ProductEntity product = productListingPage.getDetailsRandomProduct();
+        ProductEntity product = productListingPage.getProductEntityFromRandomProduct();
         return product;
     }
 
@@ -40,13 +40,17 @@ public class ProductDetailsSteps {
     }
 
 
-
+    @Step
+    public void clickOnImageOfProductToSeeDetails(){
+        productListingPage.clickOnProductImageToSeeDetails();
+    }
 
 
     @StepGroup
     public void verifyDetailsRandomProduct(){
         ProductEntity randomProductDetails = getDetailsRandomProductFromListingPage();
-        clickViewDetailsButton(randomProductDetails);
+        clickOnImageOfProductToSeeDetails();
+      //  clickViewDetailsButton(randomProductDetails);
         ProductEntity productDetails = getDetailProductFromDetailsPage();
         Assert.assertEquals(randomProductDetails.getName(),productDetails.getName());
         Assert.assertEquals(randomProductDetails.getPrice(),randomProductDetails.getPrice());
