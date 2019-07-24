@@ -1,6 +1,8 @@
 package com.evozon.steps.serenity;
 
+import com.evozon.model.BillingData;
 import com.evozon.model.BillingInformation;
+import com.evozon.model.ShippingData;
 import com.evozon.model.ShippingInformation;
 import com.evozon.pages.CheckoutPage;
 import net.thucydides.core.annotations.Step;
@@ -10,6 +12,10 @@ import org.junit.Assert;
 public class CheckoutSteps {
 
     CheckoutPage checkoutPage;
+    BillingData billingData = new BillingData();
+    BillingInformation billingInformation;
+    ShippingData shippingData = new ShippingData();
+    ShippingInformation shippingInformation;
 
 
     @Step
@@ -18,30 +24,23 @@ public class CheckoutSteps {
     }
 
     @Step
-    public BillingInformation countryBillingInformation(){
-        BillingInformation billingInformation = new BillingInformation();
-        String firstName= RandomStringUtils.randomAlphabetic(10);
-        String lastName = RandomStringUtils.randomAlphabetic(5);
-        String address = RandomStringUtils.randomAlphabetic(10);
-        String city = RandomStringUtils.randomAlphabetic(5);
-        String postalCode = RandomStringUtils.randomNumeric(7);
-        String telephone = RandomStringUtils.randomNumeric(10);
+    public void billingInformation(){
+        billingInformation = billingData.setBillingInformation();
+        System.out.println(billingInformation.getFirstName() + " working, I guess?? " + billingInformation.getLastname());
 
-
-        checkoutPage.typeBillingFirstName(firstName);
-        checkoutPage.typeBillingLastName(lastName);
-        checkoutPage.typeBillingAddress(address);
-        checkoutPage.typeBillingCity(city);
-        checkoutPage.typeBillingPostalCode(postalCode);
-        checkoutPage.typeBillingTelephone(telephone);
-
-        return billingInformation;
+        checkoutPage.typeBillingFirstName(billingInformation.getFirstName());
+        checkoutPage.typeBillingLastName(billingInformation.getLastname());
+        checkoutPage.typeBillingAddress(billingInformation.getAddress());
+        checkoutPage.typeBillingCity(billingInformation.getCity());
+        checkoutPage.typeBillingPostalCode(billingInformation.getPostalCode());
+        checkoutPage.typeBillingTelephone(billingInformation.getPhoneNumber());
 
     }
 
     @Step
     public void selectBillingCountry(){
         checkoutPage.selectBillingCountry(5);
+        System.out.println(billingInformation.getFirstName() + " working, I guess " + billingInformation.getLastname());
     }
 
     @Step
@@ -55,26 +54,16 @@ public class CheckoutSteps {
     }
 
     @Step
-    public ShippingInformation shippingInformation(){
-        ShippingInformation shippingInformation = new ShippingInformation();
-        String firstName= RandomStringUtils.randomAlphabetic(10);
-        String lastName = RandomStringUtils.randomAlphabetic(5);
-        String address = RandomStringUtils.randomAlphabetic(10);
-        String city = RandomStringUtils.randomAlphabetic(5);
-        String postalCode = RandomStringUtils.randomNumeric(7);
-        String telephone = RandomStringUtils.randomNumeric(10);
+    public void shippingInformation(){
+        shippingInformation = shippingData.setShippingInformation();
 
-        System.out.println(telephone);
+        checkoutPage.typeShippingFirstName(shippingInformation.getFirstName());
+        checkoutPage.typeShippingLastName(shippingInformation.getLastName());
+        checkoutPage.typeShippingAddress(shippingInformation.getAddress());
+        checkoutPage.typeShippingCityField(shippingInformation.getCity());
+        checkoutPage.typeShippingPostal(shippingInformation.getPostalCode());
+        checkoutPage.typeShippingTelephone(shippingInformation.getPhoneNumber());
 
-        checkoutPage.typeShippingFirstName(firstName);
-        checkoutPage.typeShippingLastName(lastName);
-        checkoutPage.typeBillingLastName(lastName);
-        checkoutPage.typeShippingAddress(address);
-        checkoutPage.typeShippingCityField(city);
-        checkoutPage.typeShippingPostal(postalCode);
-        checkoutPage.typeShippingTelephone(telephone);
-
-        return shippingInformation;
     }
 
     @Step
@@ -103,8 +92,8 @@ public class CheckoutSteps {
     }
 
     @Step
-    public void checkPropertyValue(String propertyGroupName,String  expectedPropertyValue){
-        Assert.assertTrue("The property value was not found",checkoutPage.getCheckoutDetailsContainer(propertyGroupName).getText().contains(expectedPropertyValue));
+    public void checkPropertyValue(){
+        Assert.assertTrue("The property value was not found",checkoutPage.getCheckoutDetailsContainer(billingInformation.getFirstName()).getText().contains("SHIPPING ADDRESS"));
     }
 
 
