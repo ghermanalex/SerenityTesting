@@ -16,7 +16,7 @@ import net.thucydides.core.pages.PageObject;
 import java.util.List;
 
 @DefaultUrl("http://qa1.dev.evozon.com/customer/account/login/")
-public class LoginPage extends PageObject {
+public class LoginPage extends BasePage {
 
     @FindBy(css = "form#login-form input[type = 'email']")
     private WebElementFacade emailInput;
@@ -41,9 +41,4 @@ public class LoginPage extends PageObject {
         loginSubmitButton.click();
     }
 
-    public boolean checkURL(String expectedUrl) {
-        if (expectedUrl.contentEquals(getDriver().getCurrentUrl()))
-            return true;
-        return false;
-    }
 }

@@ -37,9 +37,13 @@ public class CheckoutTest extends BaseTest {
     @Test
     public void checkoutTest() {
         loginSteps.openHomepage();
+
         registerSteps.register();
         loginSteps.performLoginWithNewRegister();
         //productDetailsPage.
+
+        loginSteps.checkThatYouAreLoggedIn(Constants.USER_EMAIL, Constants.USER_PASS);
+
         checkoutSteps.goToCheckoutPage();
         checkoutSteps.billingInformation();
         checkoutSteps.selectBillingCountry();

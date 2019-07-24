@@ -14,7 +14,10 @@ import java.util.Random;
 public class BasePage extends PageObject {
 
     public Integer getRandomElementFromList(List list){
-        return  new Random().nextInt(list.size()-1);
+        if(list.size() >1) {
+            return new Random().nextInt(list.size() - 1);
+        }
+        else return 0;
     }
 
     public WebElementFacade getWebElementFromList(List<WebElementFacade> list, Integer position){
@@ -25,6 +28,7 @@ public class BasePage extends PageObject {
     public WebElementFacade getChildWebElementFromParentByCssSelector(WebElementFacade element, String cssSelector){
         return element.find(By.cssSelector(cssSelector));
     }
+
     public void waitForElementToBeVisible(int seconds, WebElement element){
         WebDriverWait wait = new WebDriverWait(getDriver(), seconds);
         wait.until(ExpectedConditions.visibilityOf(element));
@@ -44,6 +48,24 @@ public class BasePage extends PageObject {
             System.out.println(e);
         }
     }
+
+
+    public boolean isExpectedUrl(String expectedUrl)
+    {
+        if(getDriver().getCurrentUrl().toLowerCase().contentEquals(expectedUrl.toLowerCase())) {
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public Float fromStringToFloat(String stringPrice){
+        StringBuilder strPrice = new StringBuilder(stringPrice);
+        Float price = Float.valueOf(strPrice.substring(1, strPrice.length() - 1));
+        return price;
+    }
+    
 
 
 

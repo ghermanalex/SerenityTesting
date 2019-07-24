@@ -4,13 +4,19 @@ import com.evozon.model.ProductEntity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.ElementNotSelectableException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-@DefaultUrl("http://qa1.dev.evozon.com/ludlow-oxford-top-594.html")
-public class ProductDetailsPage extends PageObject {
+//@DefaultUrl("http://qa1.dev.evozon.com/ludlow-oxford-top-594.html")
+//@DefaultUrl("http://qa1.dev.evozon.com/fashionnova-summer-dress.html")
+//@DefaultUrl("http://qa1.dev.evozon.com/classic-crocs.html")
+//@DefaultUrl("http://qa1.dev.evozon.com/bluza-noua.html")
+//@DefaultUrl("http://qa1.dev.evozon.com/jingle-dress.html")
+@DefaultUrl("http://qa1.dev.evozon.com/fashionnova-leather-dress.html")
+public class ProductDetailsPage extends BasePage {
 
     @FindBy(css = ".product-shop")
     WebElementFacade product;
@@ -33,24 +39,59 @@ public class ProductDetailsPage extends PageObject {
 
 
     public ProductEntity getProductDetailsFromDetailsPage(){
-        StringBuilder strPrice= new StringBuilder(productPrice.getText());
-        Float floatPrice = Float.valueOf(strPrice.substring(1,strPrice.length()-1));
-        ProductEntity productDetails = new ProductEntity(product, productName.getText(),floatPrice);
+        Float price = fromStringToFloat(productPrice.getText());
+        ProductEntity productDetails = new ProductEntity(product, productName.getText(),price);
         return productDetails;
 
     }
 
 
-    public void setProductColor(){
-        colorList.get(0).click();
+    public void setProductColor()throws ElementNotSelectableException{
+        Integer randomColorPostion = getRandomElementFromList(colorList);
+        WebElementFacade randomColor = getWebElementFromList(colorList,randomColorPostion);
+        if(randomColor.isEnabled()){
+            randomColor.click();
+        }
+        else
+            throw new ElementNotSelectableException("Product set color exception in ProductDetailsPage");
     }
+
 
     public void setProductSize(){
-        sizeList.get(0).click();
+        Integer randomSizePostion = getRandomElementFromList(sizeList);
+        WebElementFacade randomSize = getWebElementFromList(sizeList,randomSizePostion);
+        if(randomSize.isEnabled()){
+            randomSize.click();
+        }
+        else
+         throw new ElementNotSelectableException("Prodcut set size exception in ProductDetailsPage");
+
+
     }
 
-    public void clickAddToCartButton(){
-        addToCartButton.click();
+    public Boolean checkProductHasColorOptions(){
+        if(colorList.size()==0){
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean checkProductHasSizeOptions(){
+        if(sizeList.size()==0){
+            return false;
+        }
+        return true;
+    }
+
+
+
+
+    public void clickAddToCartButton()throws ElementNotSelectableException{
+        addToCartButton.waitUntilVisible();
+        if(addToCartButton.isEnabled())
+            addToCartButton.click();
+        else throw new ElementNotSelectableException("Button not available");
+
     }
 
 

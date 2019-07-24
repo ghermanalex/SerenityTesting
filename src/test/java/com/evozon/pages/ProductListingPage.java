@@ -11,28 +11,25 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 import java.util.Random;
 
-@DefaultUrl("http://qa1.dev.evozon.com/catalogsearch/result/?q=blouses")
+@DefaultUrl("http://qa1.dev.evozon.com/catalogsearch/result/?q=a")
 public class ProductListingPage extends BasePage {
 
 
-    private Integer random ;
+
 
     //lista cu toate produse impreuna cu imaginea lor
-    @FindBy(css = ".category-products .products-grid li ")
+    @FindBy(css = ".category-products .products-grid > li")
     private List<WebElementFacade> listAllProductsWithImage;
 
     //lista de produce fara imagine
     @FindBy(css = "ul.products-grid > li .product-info")
     private List<WebElementFacade> listAllProducts;
 
+    private Integer randomProductPostion  ;
 
     public ProductEntity getProductEntityFromRandomProduct() {
 
-
-
-        Integer randomProductPostion = getRandomElementFromList(listAllProducts);
-        //Setam random ca sa stim pe ce produs sa dam click ca sa vedem detalile
-        setRandom(randomProductPostion);
+        setRandom(getRandomElementFromList(listAllProductsWithImage));
         WebElementFacade randomElementFromList = getWebElementFromList(listAllProducts,randomProductPostion);
 
         String name = getNameOfProduct(randomElementFromList,"h2 a");
@@ -44,19 +41,6 @@ public class ProductListingPage extends BasePage {
     }
 
 
-    public String getNameOfProduct(WebElementFacade product, String selector){
-        return getChildWebElementFromParentByCssSelector(product,selector).getText();
-    }
-
-
-    public Float getPriceOfProduct(WebElementFacade product, String selector){
-        String stringPrice = getChildWebElementFromParentByCssSelector(product,selector).getText();
-        StringBuilder strPrice = new StringBuilder(stringPrice);
-        Float price = Float.valueOf(strPrice.substring(1, strPrice.length() - 1));
-        return price;
-    }
-
-
 
     public void clickViewDetailButton(ProductEntity product) {
         product.getProduct().findElement(By.cssSelector(".actions a")).click();
@@ -65,17 +49,27 @@ public class ProductListingPage extends BasePage {
 
     public void clickOnProductImageToSeeDetails()
     {
-        WebElementFacade productElement = getWebElementFromList(listAllProductsWithImage,random);
-        WebElementFacade productImage = getChildWebElementFromParentByCssSelector(productElement,"a");
+        WebElementFacade productElement = getWebElementFromList(listAllProductsWithImage,getRandom());
+        WebElementFacade productImage = getChildWebElementFromParentByCssSelector(productElement,"a.product-image");
         productImage.click();
 
     }
 
+    public String getNameOfProduct(WebElementFacade product, String selector){
+        return getChildWebElementFromParentByCssSelector(product,selector).getText();
+    }
+
+    public Float getPriceOfProduct(WebElementFacade product, String selector){
+        String stringPrice = getChildWebElementFromParentByCssSelector(product,selector).getText();
+        return fromStringToFloat(stringPrice);
+
+    }
+
     public Integer getRandom() {
-        return random;
+        return randomProductPostion;
     }
 
     public void setRandom(Integer random) {
-        this.random = random;
+        this.randomProductPostion = random;
     }
 }

@@ -61,4 +61,10 @@ public class LoginSteps {
         clickLoginButton();
 
     }
+
+    public void checkThatYouAreLoggedIn(String email, String password) {
+        typeEmail(email);
+        typePassword(password);
+        clickLoginButton();
+        Assert.assertTrue("You are not logged in", myAccountPage.isExpectedUrl(Constants.HOST + "/customer/account/"));    }
 }
