@@ -5,6 +5,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -25,6 +26,10 @@ public class BasePage extends PageObject {
     public void waitForElementToBeVisible(int seconds, WebElement element){
         WebDriverWait wait = new WebDriverWait(getDriver(), seconds);
         wait.until(ExpectedConditions.visibilityOf(element));
+    }
+    public void waitForElementToBeClickable(int seconds, WebElement element){
+        WebDriverWait wait = new WebDriverWait(getDriver(), seconds);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
     }
     public void waitForElementToBeVisibleAndThenInvisible(int seconds, WebElement element){
         WebDriverWait wait = new WebDriverWait(getDriver(), seconds);
@@ -49,6 +54,14 @@ public class BasePage extends PageObject {
             return true;
         }
         return false;
+    }
+
+
+
+
+    public void hoverOverElement(WebElement element) {
+        Actions action = new Actions(getDriver());
+        action.moveToElement(element).build().perform();
     }
 
 

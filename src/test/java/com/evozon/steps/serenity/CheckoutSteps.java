@@ -1,8 +1,8 @@
 package com.evozon.steps.serenity;
 
-import com.evozon.model.BillingData;
+import com.evozon.Factory.BillingInformationFactory;
+import com.evozon.Factory.ShippingInformationFactory;
 import com.evozon.model.BillingInformation;
-import com.evozon.model.ShippingData;
 import com.evozon.model.ShippingInformation;
 import com.evozon.pages.CheckoutPage;
 import net.thucydides.core.annotations.Step;
@@ -11,10 +11,8 @@ import org.junit.Assert;
 public class CheckoutSteps {
 
     CheckoutPage checkoutPage;
-    BillingData billingData = new BillingData();
-    BillingInformation billingInformation;
-    ShippingData shippingData = new ShippingData();
-    ShippingInformation shippingInformation;
+    BillingInformation billingInformation = BillingInformationFactory.getBillingInformationInstance();
+    ShippingInformation shippingInformation = ShippingInformationFactory.getShippingInformationInstance();
 
 
     @Step
@@ -24,8 +22,6 @@ public class CheckoutSteps {
 
     @Step
     public void billingInformation(){
-        billingInformation = billingData.setBillingInformation();
-
         checkoutPage.typeBillingFirstName(billingInformation.getFirstName());
         checkoutPage.typeBillingLastName(billingInformation.getLastname());
         checkoutPage.typeBillingAddress(billingInformation.getAddress());
@@ -45,10 +41,18 @@ public class CheckoutSteps {
         checkoutPage.clickContinueShippingButton();
     }
 
+    @Step
+    public void clickEditShippingInformation(){
+        checkoutPage.clickOnEditShippingInformation();
+    }
 
     @Step
-    public void shippingInformation(){
-        shippingInformation = shippingData.setShippingInformation();
+    public void clickShipToDifferentAddress(){
+        checkoutPage.clickShipToDifferentAddress();
+    }
+
+    @Step
+    public void shippingInformation() {
 
         checkoutPage.typeShippingFirstName(shippingInformation.getFirstName());
         checkoutPage.typeShippingLastName(shippingInformation.getLastName());
@@ -86,9 +90,22 @@ public class CheckoutSteps {
     }
 
     @Step
-    public void checkPropertyValue(){
-        Assert.assertTrue("The property value was not found",checkoutPage.getCheckoutDetailsContainer(billingInformation.getFirstName()).getText().contains("SHIPPING ADDRESS"));
+    public void verifyCheckoutDetails(){
+        Assert.assertTrue("First name was not found",checkoutPage.getCheckoutDetailsContainer("BILLING ADDRESS").getText().contains(billingInformation.getFirstName()));
+        Assert.assertTrue("Last name was not found",checkoutPage.getCheckoutDetailsContainer("BILLING ADDRESS").getText().contains(billingInformation.getLastname()));
+        Assert.assertTrue("Address was not found",checkoutPage.getCheckoutDetailsContainer("BILLING ADDRESS").getText().contains(billingInformation.getAddress()));
+        Assert.assertTrue("City name was not found", checkoutPage.getCheckoutDetailsContainer("BILLING ADDRESS").getText().contains(billingInformation.getCity()));
+        Assert.assertTrue("Postal code was not found", checkoutPage.getCheckoutDetailsContainer("BILLING ADDRESS").getText().contains(billingInformation.getPostalCode()));
+        Assert.assertTrue("Phone number was not found", checkoutPage.getCheckoutDetailsContainer("BILLING ADDRESS").getText().contains(billingInformation.getPhoneNumber()));
+
     }
+
+    @Step
+    public void checkConfirmOrderMessage(){
+        Assert.assertTrue("The message is not visible", checkoutPage.checkConfirmMessage("YOUR ORDER HAS BEEN RECEIVED."));
+    }
+
+
 
 
 
