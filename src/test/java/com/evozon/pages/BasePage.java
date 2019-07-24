@@ -5,6 +5,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -64,6 +65,18 @@ public class BasePage extends PageObject {
         StringBuilder strPrice = new StringBuilder(stringPrice);
         Float price = Float.valueOf(strPrice.substring(1, strPrice.length() - 1));
         return price;
+    }
+
+    public void hoverOverElement(WebElement element) {
+        Actions action = new Actions(getDriver());
+        action.moveToElement(element).build().perform();
+    }
+
+    public Integer getRandomElementFromWebElemList(List<WebElement> list){
+        if(list.size() >1) {
+            return new Random().nextInt(list.size() - 1);
+        }
+        else return 0;
     }
     
 
