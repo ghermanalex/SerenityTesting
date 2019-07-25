@@ -13,5 +13,6 @@ public class Constants {
     public static final String INVALID_PRODUCT = "casa";
 
     public static final String PRODUCT_SESSION_KEY = "productInSession";
+    public static final String WEB_ELEMENT_SESSION_KEY = "webElementInSession";
 
 }

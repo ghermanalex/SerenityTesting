@@ -12,12 +12,7 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 import java.util.Random;
 
-//@DefaultUrl("http://qa1.dev.evozon.com/ludlow-oxford-top-594.html")
-//@DefaultUrl("http://qa1.dev.evozon.com/fashionnova-summer-dress.html")
-//@DefaultUrl("http://qa1.dev.evozon.com/classic-crocs.html")
-//@DefaultUrl("http://qa1.dev.evozon.com/bluza-noua.html")
-//@DefaultUrl("http://qa1.dev.evozon.com/jingle-dress.html")
-@DefaultUrl("http://qa1.dev.evozon.com/fashionnova-leather-dress.html")
+@DefaultUrl("http://qa1.dev.evozon.com/ludlow-oxford-top-594.html")
 public class ProductDetailsPage extends BasePage {
 
     @FindBy(css = ".product-shop")

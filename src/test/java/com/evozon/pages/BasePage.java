@@ -48,21 +48,20 @@ public class BasePage extends PageObject {
     }
 
 
-    public boolean isExpectedUrl(String expectedUrl)
+    public boolean containsExpectedUrl(String expectedUrl)
     {
-        if(getDriver().getCurrentUrl().toLowerCase().contentEquals(expectedUrl.toLowerCase())) {
+        if(getDriver().getCurrentUrl().toLowerCase().contains(expectedUrl.toLowerCase())) {
             return true;
         }
         return false;
     }
 
-
-
-
     public void hoverOverElement(WebElement element) {
         Actions action = new Actions(getDriver());
         action.moveToElement(element).build().perform();
     }
+
+
 
 
 

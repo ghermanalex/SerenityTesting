@@ -24,10 +24,7 @@ public class ProductDetailsSteps {
     @Step
     public void getDetailsRandomProductFromListingPage() {
         ProductEntity product = productListingPage.getProductEntityFromRandomProduct();
-
         Serenity.setSessionVariable(Constants.PRODUCT_SESSION_KEY).to(product);
-
-
     }
 
     @Step

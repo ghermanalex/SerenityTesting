@@ -14,6 +14,7 @@ public class Utils {
 
     public static Float fromStringToFloat(String stringPrice){
         StringBuilder strPrice = new StringBuilder(stringPrice);
+        //if(stringPrice.length()>7)
         Float price = Float.valueOf(strPrice.substring(1, strPrice.length() - 1));
         return price;
     }
