@@ -39,7 +39,7 @@ public class CheckoutTest extends BaseTest {
 
 
     @Test
-    public void checkoutTestWithNewUser() {
+    public void checkoutAsNewRegisteredUserTest() {
         registerSteps.register();
         searchSteps.searchProduct(Constants.VALID_PRODUCT);
         productDetailsSteps.verifyDetailsRandomProduct();
@@ -56,6 +56,27 @@ public class CheckoutTest extends BaseTest {
         checkoutSteps.clickContinuePayment();
         checkoutSteps.verifyCheckoutDetails();
         checkoutSteps.placeOrder();
+
+    }
+
+    @Test
+    public void checkoutAsUserTest(){
+        loginSteps.openHomepage();
+        loginSteps.performLogin(Constants.USER_EMAIL,Constants.USER_PASS);
+        searchSteps.searchProduct(Constants.VALID_PRODUCT);
+        productDetailsSteps.verifyDetailsRandomProduct();
+        shoppingCartSteps.verfiyDetailsProductInShoppingCart();
+        checkoutSteps.goToCheckoutPage();
+        checkoutSteps.clickShipToDifferentAddress();
+        checkoutSteps.clickContinueShipping();
+        checkoutSteps.clickContinueToShippingMethod();
+        checkoutSteps.setShippingMethod();
+        checkoutSteps.clickContinuePayment();
+        checkoutSteps.verifyCheckoutDetails();
+        checkoutSteps.placeOrder();
+
+
+
 
     }
 

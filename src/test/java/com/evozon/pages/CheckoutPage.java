@@ -73,7 +73,7 @@ public class CheckoutPage extends BasePage {
     private WebElementFacade shippingTelephoneNumber;
 
     @FindBy(css = "#shipping-buttons-container .button")
-    private WebElementFacade continueToShoppingMethodButton;
+    private WebElement continueToShippingMethodButton;
 
     @FindBy(id = "s_method_freeshipping_freeshipping")
     private WebElement freeShippingRadioButton;
@@ -190,11 +190,12 @@ public class CheckoutPage extends BasePage {
     }
 
     public void clickContinueToShippingMethod() {
-        continueToShoppingMethodButton.click();
+        waitForElementToBeClickable(20, continueToShippingMethodButton);
+               continueToShippingMethodButton.click();
     }
 
     public void setShippingInformation() {
-        waitForElementToBeVisible(15, notClickableShippingRate);
+        waitForElementToBeVisible(20, notClickableShippingRate);
         saveShippingButton.click();
 //        if (freeShippingRadioButton.isSelected()) {
 //            saveShippingButton.click();
