@@ -229,6 +229,7 @@ public class CheckoutPage extends BasePage {
     }
 
     public boolean checkConfirmMessage(String message){
+        orderConfirmMsg.waitUntilVisible();
         if (orderConfirmMsg.getText().trim().toLowerCase().contentEquals(message.toLowerCase()));
             return true;
 

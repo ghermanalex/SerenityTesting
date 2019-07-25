@@ -5,10 +5,8 @@ import com.evozon.steps.serenity.SearchSteps;
 import com.evozon.steps.serenity.ShoppingCartSteps;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
-import net.thucydides.junit.annotations.UseTestDataFrom;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static net.thucydides.core.steps.stepdata.StepData.withTestDataFrom;
 
 @RunWith(SerenityRunner.class)
 public class ShoppingCartTest extends BaseTest{

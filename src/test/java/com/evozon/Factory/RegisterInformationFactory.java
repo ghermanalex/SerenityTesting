@@ -7,7 +7,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 public class RegisterInformationFactory {
 
 
-    public RegisterInformation getRegisterInformationInstance(){
+    public static RegisterInformation getRegisterInformationInstance(){
         RegisterInformation registerInformation = new RegisterInformation();
 
         registerInformation.setFirstname(Constants.FIRST_NAME);

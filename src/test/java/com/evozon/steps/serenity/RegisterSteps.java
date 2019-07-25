@@ -1,5 +1,6 @@
 package com.evozon.steps.serenity;
 
+import com.evozon.Factory.RegisterInformationFactory;
 import com.evozon.model.RegisterInformation;
 import com.evozon.pages.RegisterPage;
 import net.thucydides.core.annotations.Step;
@@ -8,7 +9,7 @@ import net.thucydides.core.annotations.StepGroup;
 public class RegisterSteps {
 
     RegisterPage registerPage;
-    RegisterInformation registerInformation;
+    RegisterInformation registerInformation = RegisterInformationFactory.getRegisterInformationInstance();
 
     @Step
     public void gotToRegisterPage(){
