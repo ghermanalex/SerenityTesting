@@ -12,4 +12,6 @@ public class Constants {
     public static final String VALID_PRODUCT = "blouses";
     public static final String INVALID_PRODUCT = "casa";
 
+    public static final String PRODUCT_SESSION_KEY = "productInSession";
+
 }
