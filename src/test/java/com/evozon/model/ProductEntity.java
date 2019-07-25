@@ -7,18 +7,33 @@ import java.util.List;
 
 public class ProductEntity {
 
-    private WebElementFacade product;
     private String name;
     private List<Size> sizeList;
+    private Integer quantity;
     private Float price;
+    private Float totalPrice;
 
     public ProductEntity(){}
 
-    public ProductEntity(WebElementFacade product, String name, Float price){
-        this.product = product;
+    public ProductEntity (String name, Float price){
+
         this.name = name;
         this.price= price;
     }
+
+    public ProductEntity( String name, Float price,Float totalPrice){
+        this.name = name;
+        this.price= price;
+        this.totalPrice = totalPrice;
+    }
+
+    public ProductEntity( String name,Integer quantity ,Float price,Float totalPrice){
+        this.name = name;
+        this.quantity = quantity;
+        this.price= price;
+        this.totalPrice = totalPrice;
+    }
+
 
     public String getName() {
         return name;
@@ -44,11 +59,20 @@ public class ProductEntity {
         this.price = price;
     }
 
-    public WebElementFacade getProduct() {
-        return product;
+
+    public Float getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setProduct(WebElementFacade product) {
-        this.product = product;
+    public void setTotalPrice(Float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

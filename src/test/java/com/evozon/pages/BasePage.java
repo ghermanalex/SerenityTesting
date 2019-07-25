@@ -14,13 +14,6 @@ import java.util.Random;
 
 public class BasePage extends PageObject {
 
-    public Integer getRandomElementFromList(List list){
-        if(list.size() >1) {
-            return new Random().nextInt(list.size() - 1);
-        }
-        else return 0;
-    }
-
     public WebElementFacade getWebElementFromList(List<WebElementFacade> list, Integer position){
         return list.get(position);
     }
@@ -65,24 +58,12 @@ public class BasePage extends PageObject {
 
 
 
-    public Float fromStringToFloat(String stringPrice){
-        StringBuilder strPrice = new StringBuilder(stringPrice);
-        Float price = Float.valueOf(strPrice.substring(1, strPrice.length() - 1));
-        return price;
-    }
 
     public void hoverOverElement(WebElement element) {
         Actions action = new Actions(getDriver());
         action.moveToElement(element).build().perform();
     }
 
-    public Integer getRandomElementFromWebElemList(List<WebElement> list){
-        if(list.size() >1) {
-            return new Random().nextInt(list.size() - 1);
-        }
-        else return 0;
-    }
-    
 
 
 

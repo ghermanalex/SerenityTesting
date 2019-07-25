@@ -1,6 +1,7 @@
 package com.evozon.pages;
 
 import com.evozon.model.ProductEntity;
+import com.evozon.utils.Utils;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
@@ -18,19 +19,17 @@ public class ShoppingCartPage extends BasePage {
     @FindBy(css = ".checkout-types.top button")
     WebElementFacade proceedToCheckOutButton;
 
+
+
     public ProductEntity getProductEntityFromShoppingCartList(String productName) {
 
         WebElementFacade productFromShoppingCartList = getProductWebElementFromShoppingCartList(productName);
-        String name = getNameOfProduct(productFromShoppingCartList,".product-name a");
-       // String name = productFromShoppingCartList.findElement(By.cssSelector(".product-name a")).getText();
-//        String stringPrice = productFromShoppingCartList.findElement(By.cssSelector(".product-cart-price .price")).getText();
-//        StringBuilder strPrice = new StringBuilder(stringPrice);
-//        Float integerPrice = Float.valueOf(strPrice.substring(1, strPrice.length() - 1));
 
-        Float price = getPriceOfProduct(productFromShoppingCartList,".product-cart-price .price");
-        ProductEntity shoppingCartProduct = new ProductEntity(productFromShoppingCartList, name, price);
+        String name = getNameOfProduct(productFromShoppingCartList);
+        Float price = getPriceOfProduct(productFromShoppingCartList);
+        Float totalPrice = getTotalPriceOfProduct(productFromShoppingCartList);
 
-        //randomElementFromList.findElement(By.cssSelector(".actions a")).click();
+        ProductEntity shoppingCartProduct = new ProductEntity( name, price, totalPrice);
 
         return shoppingCartProduct;
     }
@@ -40,7 +39,6 @@ public class ShoppingCartPage extends BasePage {
         WebElementFacade productFromShoppingCartList=null ;
         for(WebElementFacade prod:shoppingCartProductList){
             String nameProductFromShoppingCart = getChildWebElementFromParentByCssSelector(prod,".product-name a").getText();
-         //   String nameProductFromCart = prod.findElement(By.cssSelector(".product-name a")).getText();
             if(nameProductFromShoppingCart.toUpperCase().equals(productName.toUpperCase())){
                 productFromShoppingCartList = prod;
                 break;
@@ -50,15 +48,21 @@ public class ShoppingCartPage extends BasePage {
     }
 
 
-    public String getNameOfProduct(WebElementFacade product, String selector){
-        return getChildWebElementFromParentByCssSelector(product,selector).getText();
+
+    public String getNameOfProduct(WebElementFacade product){
+        return getChildWebElementFromParentByCssSelector(product,".product-name a").getText();
     }
 
-    public Float getPriceOfProduct(WebElementFacade product, String selector){
-        String stringPrice = getChildWebElementFromParentByCssSelector(product,selector).getText();
-        return fromStringToFloat(stringPrice);
-
+    public Float getPriceOfProduct(WebElementFacade product){
+        String stringPrice = getChildWebElementFromParentByCssSelector(product,".product-cart-price .price").getText();
+        return Utils.fromStringToFloat(stringPrice);
     }
+
+    public Float getTotalPriceOfProduct(WebElementFacade product){
+        String stringPrice = getChildWebElementFromParentByCssSelector(product,".product-cart-total .price").getText();
+        return Utils.fromStringToFloat(stringPrice);
+    }
+
 
 
 
@@ -66,5 +70,24 @@ public class ShoppingCartPage extends BasePage {
         proceedToCheckOutButton.click();
     }
 
+
+    public Integer setProductEntityQuantity(ProductEntity product){
+        Integer randomQuantity = new Random().nextInt(5)+1;
+        product.setQuantity(randomQuantity);
+        return randomQuantity;
+    }
+
+
+    public void setProductQuantityInCart(ProductEntity product){
+        WebElementFacade productFromShoppingCartList = getProductWebElementFromShoppingCartList(product.getName());
+
+        WebElement inputQuantityWebElement = getChildWebElementFromParentByCssSelector(productFromShoppingCartList,".product-cart-actions input");
+
+        Integer quantityValue = setProductEntityQuantity(product);
+
+        inputQuantityWebElement.clear();
+        inputQuantityWebElement.sendKeys(quantityValue.toString() + "\n");
+
+    }
 
 }

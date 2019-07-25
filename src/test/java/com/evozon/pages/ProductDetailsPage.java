@@ -1,6 +1,7 @@
 package com.evozon.pages;
 
 import com.evozon.model.ProductEntity;
+import com.evozon.utils.Utils;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
@@ -9,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
+import java.util.Random;
 
 //@DefaultUrl("http://qa1.dev.evozon.com/ludlow-oxford-top-594.html")
 //@DefaultUrl("http://qa1.dev.evozon.com/fashionnova-summer-dress.html")
@@ -37,17 +39,29 @@ public class ProductDetailsPage extends BasePage {
     WebElementFacade addToCartButton;
 
 
+    @FindBy(css ="[name=\"qty\"]")
+    WebElementFacade quantity;
+
 
     public ProductEntity getProductDetailsFromDetailsPage(){
-        Float price = fromStringToFloat(productPrice.getText());
-        ProductEntity productDetails = new ProductEntity(product, productName.getText(),price);
+        Float price = Utils.fromStringToFloat(productPrice.getText());
+        ProductEntity productDetails = new ProductEntity( productName.getText(),price);
         return productDetails;
+    }
 
+
+    public String getProductName(){
+        return productName.getText();
+    }
+
+    public Float getProdutPrice(){
+        Float price = Utils.fromStringToFloat(productPrice.getText());
+        return price;
     }
 
 
     public void setProductColor()throws ElementNotSelectableException{
-        Integer randomColorPostion = getRandomElementFromList(colorList);
+        Integer randomColorPostion = Utils.getRandomElementFromList(colorList);
         WebElementFacade randomColor = getWebElementFromList(colorList,randomColorPostion);
         if(randomColor.isEnabled()){
             randomColor.click();
@@ -58,7 +72,7 @@ public class ProductDetailsPage extends BasePage {
 
 
     public void setProductSize(){
-        Integer randomSizePostion = getRandomElementFromList(sizeList);
+        Integer randomSizePostion = Utils.getRandomElementFromList(sizeList);
         WebElementFacade randomSize = getWebElementFromList(sizeList,randomSizePostion);
         if(randomSize.isEnabled()){
             randomSize.click();
@@ -84,8 +98,6 @@ public class ProductDetailsPage extends BasePage {
     }
 
 
-
-
     public void clickAddToCartButton()throws ElementNotSelectableException{
         addToCartButton.waitUntilVisible();
         if(addToCartButton.isEnabled())
@@ -94,6 +106,13 @@ public class ProductDetailsPage extends BasePage {
 
     }
 
+
+    public Integer setQuantity(){
+        Integer ranndomQuantiy =  new Random().nextInt(5)+1;
+        quantity.clear();
+        quantity.type(ranndomQuantiy.toString());
+        return ranndomQuantiy;
+    }
 
 
 
