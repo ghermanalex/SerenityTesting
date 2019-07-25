@@ -31,7 +31,8 @@ public class PlaceAnOrderCompleteFlowTest extends BaseTest{
     @Test
     public void verifyProductDetailsAndProductShoppingCartDetails() {
         loginSteps.openHomepage();
-        loginSteps.checkThatYouAreLoggedIn(Constants.USER_EMAIL, Constants.USER_PASS);
+        loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        loginSteps.checkThatYouAreLoggedIn();
         searchSteps.searchProduct(Constants.VALID_PRODUCT);
         searchSteps.checkThatResultPageIsShown(Constants.VALID_PRODUCT);
         //productDetailsSteps.openPageWithProducts();

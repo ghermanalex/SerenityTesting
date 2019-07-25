@@ -11,9 +11,9 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 
-@RunWith(SerenityParameterizedRunner.class)
-//@UseTestDataFrom(value =  )
-//@RunWith(SerenityRunner.class)
+//@RunWith(SerenityParameterizedRunner.class)
+//@UseTestDataFrom(value = "src/test/resources/csv/Login.csv" )
+@RunWith(SerenityRunner.class)
 public class LoginTest extends BaseTest {
 
     @Steps
@@ -23,9 +23,12 @@ public class LoginTest extends BaseTest {
     public void loginValidCredentials(){
         loginSteps.openHomepage();
         setup();
-        loginSteps.checkThatYouAreLoggedIn(Constants.USER_EMAIL, Constants.USER_PASS);
+        loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        loginSteps.checkThatYouAreLoggedIn();
 
     }
+
+    //public void loginAsCustomerShouldDisplayAppropiateMessage()
 
 
 
