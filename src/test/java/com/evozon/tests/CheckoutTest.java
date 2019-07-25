@@ -39,7 +39,7 @@ public class CheckoutTest extends BaseTest {
 
 
     @Test
-    public void checkoutTest() {
+    public void checkoutTestWithNewUser() {
         registerSteps.register();
         searchSteps.searchProduct(Constants.VALID_PRODUCT);
         productDetailsSteps.verifyDetailsRandomProduct();
@@ -57,9 +57,8 @@ public class CheckoutTest extends BaseTest {
         checkoutSteps.verifyCheckoutDetails();
         checkoutSteps.placeOrder();
 
-
-
     }
+
 
 
 }

@@ -6,6 +6,7 @@ import com.evozon.pages.ShoppingCartPage;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;
+import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
 import org.openqa.selenium.ElementNotSelectableException;
 
@@ -102,6 +103,13 @@ public class ShoppingCartSteps {
         Assert.assertEquals(productPriceDepedingOnQuantity,shoppingCartPage.getTotalPriceOfProduct(productInShoppingCart));
         Assert.assertEquals(productTotalPriceInCart,shoppingCartPage.getTotalPriceOfProduct(productInShoppingCart));
     }
+
+
+    @Step
+    public void checkProductPrice(String name,Float expectedPrice) {
+        Assert.assertTrue("The price is not correctt", shoppingCartPage.getPriceOfProductInCart(name).equals(expectedPrice));
+    }
+
 
 
 

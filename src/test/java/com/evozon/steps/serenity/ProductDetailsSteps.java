@@ -6,6 +6,7 @@ import com.evozon.pages.ProductListingPage;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;
+import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
 
 public class ProductDetailsSteps {
@@ -63,6 +64,11 @@ public class ProductDetailsSteps {
         Assert.assertEquals(randomProductDetails.getName(),getProductName());
         Assert.assertEquals(randomProductDetails.getPrice(),getProductPrice());
 
+    }
+
+    @Step
+    public void chooseProductInGridView(String name){
+        productListingPage.findProduct(name);
     }
 
 
