@@ -1,11 +1,13 @@
-package com.evozon.model;
+package com.evozon.Factory;
 
+import com.evozon.model.RegisterInformation;
 import com.evozon.utils.Constants;
 import org.apache.commons.lang3.RandomStringUtils;
 
-public class RegisterData {
+public class RegisterInformationFactory {
 
-    public RegisterInformation setRegisterInformation(){
+
+    public RegisterInformation getRegisterInformationInstance(){
         RegisterInformation registerInformation = new RegisterInformation();
 
         registerInformation.setFirstname(Constants.FIRST_NAME);

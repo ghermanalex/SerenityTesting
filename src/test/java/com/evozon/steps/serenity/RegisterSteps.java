@@ -1,6 +1,5 @@
 package com.evozon.steps.serenity;
 
-import com.evozon.model.RegisterData;
 import com.evozon.model.RegisterInformation;
 import com.evozon.pages.RegisterPage;
 import net.thucydides.core.annotations.Step;
@@ -10,7 +9,6 @@ public class RegisterSteps {
 
     RegisterPage registerPage;
     RegisterInformation registerInformation;
-    RegisterData registerData = new RegisterData();
 
     @Step
     public void gotToRegisterPage(){
@@ -19,7 +17,6 @@ public class RegisterSteps {
 
     @Step
     public void setRegisterFirstName(){
-        registerInformation = registerData.setRegisterInformation();
         registerPage.typeFirstName(registerInformation.getFirstname());
     }
 
