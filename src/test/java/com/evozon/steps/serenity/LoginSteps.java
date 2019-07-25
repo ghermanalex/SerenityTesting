@@ -1,11 +1,9 @@
 package com.evozon.steps.serenity;
 
-import com.evozon.model.RegisterData;
 import com.evozon.model.RegisterInformation;
 import com.evozon.pages.LoginPage;
 import com.evozon.pages.MyAccountPage;
 import com.evozon.utils.Constants;
-import net.serenitybdd.core.SerenitySystemProperties;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;
 import org.junit.Assert;
@@ -13,9 +11,7 @@ import org.junit.Assert;
 public class LoginSteps {
     LoginPage loginPage;
     MyAccountPage myAccountPage;
-
     RegisterInformation registerInformation;
-    RegisterData registerData = new RegisterData();
 
     @Step
     public void openHomepage() {
@@ -40,7 +36,6 @@ public class LoginSteps {
 
     @StepGroup
     public void performLogin(String email, String password) {
-        //registerInformation = registerData.setRegisterInformation();
         typeEmail(email);
         typePassword(password);
         clickLoginButton();
@@ -62,7 +57,6 @@ public class LoginSteps {
         clickLoginButton();
 
     }
-
 
 
 }

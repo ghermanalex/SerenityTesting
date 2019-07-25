@@ -18,23 +18,23 @@ public class SearchTest extends BaseTest{
     @Steps
     public NavigationCategorySteps navigationCategorySteps;
 
-//    @Test
-//    public void searchValidItem (){
-//        searchSteps.openHomepage();
-//        setup();
-//        searchSteps.searchProduct(Constants.VALID_PRODUCT);
-//        searchSteps.checkThatResultPageIsShown(Constants.VALID_PRODUCT);
-//        searchSteps.checkThatNumberOfItemsIsValid();
-//
-//    }
-//
-//    @Test
-//    public void searchInvalidItem() {
-//        searchSteps.openHomepage();
-//        setup();
-//        searchSteps.searchProduct(Constants.INVALID_PRODUCT);
-//        searchSteps.checkThatResultPageIsShown(Constants.INVALID_PRODUCT);
-//    }
+    @Test
+    public void searchValidItem (){
+        searchSteps.openHomepage();
+        setup();
+        searchSteps.searchProduct(Constants.VALID_PRODUCT);
+        searchSteps.checkThatResultPageIsShown(Constants.VALID_PRODUCT);
+        searchSteps.checkThatNumberOfItemsIsValid();
+
+    }
+
+    @Test
+    public void searchInvalidItem() {
+        searchSteps.openHomepage();
+        setup();
+        searchSteps.searchProduct(Constants.INVALID_PRODUCT);
+        searchSteps.checkThatResultPageIsShown(Constants.INVALID_PRODUCT);
+    }
 
 //    @Test
 //    public void chooseRandomCategory() {
