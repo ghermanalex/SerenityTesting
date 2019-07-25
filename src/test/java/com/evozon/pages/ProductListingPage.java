@@ -46,9 +46,11 @@ public class ProductListingPage extends BasePage {
         return randomProduct;
     }
 
-    public void clickOnProductImageToSeeDetails() {
-        WebElementFacade productElement = getWebElementFromList(listAllProductsWithImage, getRandom());
-        WebElementFacade productImage = getChildWebElementFromParentByCssSelector(productElement, "a.product-image");
+
+    public void clickOnProductImageToSeeDetails()
+    {
+        WebElementFacade productElement = getWebElementFromList(listAllProductsWithImage,getRandom());
+        WebElementFacade productImage = getChildWebElementFromParentByCssSelector(productElement,"a.product-image");
         productImage.click();
 
     }
@@ -71,6 +73,7 @@ public class ProductListingPage extends BasePage {
         this.randomProductPostion = random;
     }
 
+
     public void findProduct(String name) {
         List<WebElementFacade> productName = nameOfProductsInGridView;
         for (WebElementFacade product : productName) {
@@ -79,5 +82,35 @@ public class ProductListingPage extends BasePage {
             }
         }
     }
+
+
+
+    public ProductEntity getProductEntityFromProductLisitingPage(String productName) {
+
+        WebElementFacade productFromShoppingCartList = getProductWebElementFromProductListingPage(productName);
+
+        String name = getNameOfProduct(productFromShoppingCartList,"h2 a");
+        Float price = getPriceOfProduct(productFromShoppingCartList,".price");
+
+
+        ProductEntity shoppingCartProduct = new ProductEntity( name, price );
+
+        return shoppingCartProduct;
+    }
+
+
+    public WebElementFacade getProductWebElementFromProductListingPage(String productName){
+        WebElementFacade productFromProductListingPage=null ;
+        for(WebElementFacade prod:listAllProducts){
+            String nameProduct = getChildWebElementFromParentByCssSelector(prod,"h2 a").getText();
+            if(nameProduct.toUpperCase().equals(productName.toUpperCase())){
+                productFromProductListingPage = prod;
+                break;
+            }
+        }
+        return productFromProductListingPage;
+    }
+
+
 
 }

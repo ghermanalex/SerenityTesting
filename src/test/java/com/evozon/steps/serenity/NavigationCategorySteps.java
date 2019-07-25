@@ -9,23 +9,37 @@ import javax.xml.transform.sax.SAXSource;
 import java.util.List;
 
 public class NavigationCategorySteps {
-    NavigationCategoryPage navigationCategoryPage;
-
-    @Step
-    public void openHomepage() {
-        navigationCategoryPage.open();
-    }
-
-
+//    NavigationCategoryPage navigationCategoryPage;
+//
 //    @Step
-//    public void hoverOverRandomCategory() {
-//        navigationCategoryPage.hoverOverElement(navigationCategoryPage.getRandomMenuItem());
+//    public void openHomepage() {
+//        navigationCategoryPage.open();
 //    }
+//
+//
+////    @Step
+////    public void hoverOverRandomCategory() {
+////        navigationCategoryPage.hoverOverElement(navigationCategoryPage.getRandomMenuItem());
+////    }
+//
+//    @Step
+//    public void clickOnRandomCategoty() {
+//        navigationCategoryPage.accessRandomProductList();
+//
+//    }
+
 
 //    @Step
 //    public void clickOnRandomCategoty() {
 //        navigationCategoryPage.accessRandomProductList();
 //    }
+
+
+//    @Step
+//    public void clickOnRandomCategoty() {
+//        navigationCategoryPage.accessRandomProductList();
+//    }
+
 
 
 }

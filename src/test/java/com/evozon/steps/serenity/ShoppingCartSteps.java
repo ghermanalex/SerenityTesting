@@ -61,6 +61,8 @@ public class ShoppingCartSteps {
     }
 
 
+
+
     @StepGroup
     public void verfiyDetailsProductInShoppingCart(){
         ProductEntity productDetails = getDetailProductFromDetailsPage();
@@ -80,6 +82,7 @@ public class ShoppingCartSteps {
         Assert.assertEquals(productDetails.getName().toUpperCase(),name);
         Assert.assertEquals(productDetails.getPrice(),price);
     }
+
 
 
     @StepGroup
@@ -109,6 +112,9 @@ public class ShoppingCartSteps {
     public void checkProductPrice(String name,Float expectedPrice) {
         Assert.assertTrue("The price is not correctt", shoppingCartPage.getPriceOfProductInCart(name).equals(expectedPrice));
     }
+
+
+
 
 
 
