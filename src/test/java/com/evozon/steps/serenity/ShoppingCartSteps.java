@@ -3,6 +3,7 @@ package com.evozon.steps.serenity;
 import com.evozon.model.ProductEntity;
 import com.evozon.pages.ProductDetailsPage;
 import com.evozon.pages.ShoppingCartPage;
+import com.evozon.utils.Utils;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;
@@ -109,8 +110,11 @@ public class ShoppingCartSteps {
 
 
     @Step
-    public void checkProductPrice(String name,Float expectedPrice) {
-        Assert.assertTrue("The price is not correctt", shoppingCartPage.getPriceOfProductInCart(name).equals(expectedPrice));
+    public void checkProductPrice(String name,String expectedPrice) {
+        Float expPrice = Utils.fromStringToFloat(expectedPrice);
+        System.out.println(expPrice);
+        System.out.println( shoppingCartPage.getPriceOfProductInCart(name));
+        Assert.assertTrue("The price is not correct", shoppingCartPage.getPriceOfProductInCart(name).equals(expPrice));
     }
 
 

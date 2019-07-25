@@ -92,7 +92,7 @@ public class ShoppingCartPage extends BasePage {
 
     public Float getPriceOfProductInCart(String name){
         WebElementFacade productFromShoppingCartList = getProductWebElementFromShoppingCartList(name);
-        float price = getPriceOfProduct(productFromShoppingCartList);
+        Float price = getPriceOfProduct(productFromShoppingCartList);
 
         return price;
     }

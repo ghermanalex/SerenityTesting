@@ -3,6 +3,7 @@ package com.evozon.tests;
 import com.evozon.steps.serenity.ProductDetailsSteps;
 import com.evozon.steps.serenity.SearchSteps;
 import com.evozon.steps.serenity.ShoppingCartSteps;
+import com.evozon.utils.Utils;
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
@@ -26,8 +27,7 @@ public class ShoppingCartTest extends BaseTest{
     @Steps
     SearchSteps searchSteps;
 
-    private String name;
-    private String price;
+    private String name,price;
 
 //    @Test
 //    public void verifyDetailsRandomProduct() {
@@ -41,12 +41,12 @@ public class ShoppingCartTest extends BaseTest{
 //        shoppingCartSteps.verifyPriceDependinOnRandomQuantity();
 //    }
 
-//    @Test
-//    public void verifyProductDetailInCart(){
-//        searchSteps.openHomepage();
-//        searchSteps.searchProduct(name);
-//        productDetailsSteps.chooseProductInGridView(name);
-//        shoppingCartSteps.checkProductPrice(name, price);
-//    }
+    @Test
+    public void verifyProductDetailInCart(){
+        searchSteps.openHomepage();
+        searchSteps.searchProduct(name);
+        productDetailsSteps.chooseProductInGridView(name);
+        shoppingCartSteps.checkProductPrice(name, price);
+    }
 
 }

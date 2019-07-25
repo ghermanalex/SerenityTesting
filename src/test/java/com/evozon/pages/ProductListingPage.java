@@ -28,8 +28,8 @@ public class ProductListingPage extends BasePage {
     @FindBy(css = ".products-grid .product-name")
     private List<WebElementFacade> nameOfProductsInGridView;
 
-    @FindBy(css = "button.btn-cart")
-    private WebElementFacade addToCartFromGridView;
+//    @FindBy(css = ".button.btn-cart")
+//    private WebElementFacade addToCartFromGridView;
 
     private Integer randomProductPostion;
 
@@ -75,10 +75,14 @@ public class ProductListingPage extends BasePage {
 
 
     public void findProduct(String name) {
-        List<WebElementFacade> productName = nameOfProductsInGridView;
-        for (WebElementFacade product : productName) {
-            if (product.getText().toLowerCase().contentEquals(name.toLowerCase())) {
-                addToCartFromGridView.click();
+      //  List<WebElementFacade> productName = nameOfProductsInGridView;
+
+        for (WebElementFacade product : listAllProducts) {
+            String productName = getNameOfProduct(product, "h2 a");
+            if (productName.toLowerCase().contentEquals(name.toLowerCase())) {
+                WebElement addToCartBtn = product.find(By.cssSelector(".button.btn-cart"));
+                addToCartBtn.click();
+                break;
             }
         }
     }
