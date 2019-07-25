@@ -3,6 +3,7 @@ package com.evozon.steps.serenity;
 import com.evozon.model.ProductEntity;
 import com.evozon.pages.ProductDetailsPage;
 import com.evozon.pages.ProductListingPage;
+import com.evozon.utils.Constants;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;
@@ -21,18 +22,21 @@ public class ProductDetailsSteps {
     }
 
     @Step
-    public ProductEntity getDetailsRandomProductFromListingPage() {
+    public void getDetailsRandomProductFromListingPage() {
         ProductEntity product = productListingPage.getProductEntityFromRandomProduct();
-        return product;
+
+        Serenity.setSessionVariable(Constants.PRODUCT_SESSION_KEY).to(product);
+
+
     }
 
     @Step
-    public String getProductName(){
+    public String getProductNameFromProductDetailsPage(){
         return productDetailsPage.getProductName();
     }
 
     @Step
-    public Float getProductPrice(){
+    public Float getProductPriceFromProductDetailsPage(){
         return productDetailsPage.getProdutPrice();
     }
 
@@ -55,14 +59,26 @@ public class ProductDetailsSteps {
     }
 
 
+    @Step
+    public void verifyNameOfProducts(String nameFirstProduct,String nameSecondProduct){
+        Assert.assertEquals(nameFirstProduct,nameSecondProduct);
+    }
+
+    @Step
+    public void verifyPriceOfProducts(Float priceFirstProduct,Float priceSecondProduct){
+        Assert.assertEquals(priceFirstProduct,priceSecondProduct);
+    }
+
+
     @StepGroup
     public void verifyDetailsRandomProduct(){
-        ProductEntity randomProductDetails = getDetailsRandomProductFromListingPage();
+        getDetailsRandomProductFromListingPage();
+        ProductEntity randomProductDetails = Serenity.sessionVariableCalled(Constants.PRODUCT_SESSION_KEY);
         clickOnImageOfProductToSeeDetails();
-      //  clickViewDetailsButton(randomProductDetails);
-        //ProductEntity productDetails = getDetailProductFromDetailsPage();
-        Assert.assertEquals(randomProductDetails.getName(),getProductName());
-        Assert.assertEquals(randomProductDetails.getPrice(),getProductPrice());
+        String name = getProductNameFromProductDetailsPage();
+        Float price = getProductPriceFromProductDetailsPage();
+        verifyNameOfProducts(randomProductDetails.getName(),name);
+        verifyPriceOfProducts(randomProductDetails.getPrice(),price);
 
     }
 
@@ -70,8 +86,6 @@ public class ProductDetailsSteps {
     public void chooseProductInGridView(String name){
         productListingPage.findProduct(name);
     }
-
-
 
 
 

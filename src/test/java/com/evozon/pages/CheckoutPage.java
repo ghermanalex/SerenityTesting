@@ -213,6 +213,7 @@ public class CheckoutPage extends BasePage {
 
     public void clickPlaceOrder() {
         element(placeOrderButton).waitUntilVisible();
+        waitForElementToBeClickable(10,placeOrderButton);
         placeOrderButton.click();
     }
 
