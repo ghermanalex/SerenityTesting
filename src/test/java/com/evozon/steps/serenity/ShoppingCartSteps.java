@@ -135,11 +135,11 @@ public class ShoppingCartSteps {
         WebElementFacade productInShoppingCart = Serenity.sessionVariableCalled(Constants.WEB_ELEMENT_SESSION_KEY);
         Float price = getPriceOfProductInShopingCart(productInShoppingCart);
 
-        Float productPriceDepedingOnQuantity = productDetails.getPrice()* quantity;
+        Float productPriceDepedingOnQuantityInDetailPage = productDetails.getPrice()* quantity;
         Float productTotalPriceInCart = price* quantity;
 
-        Assert.assertEquals(productPriceDepedingOnQuantity,shoppingCartPage.getTotalPriceOfProduct(productInShoppingCart));
-        Assert.assertEquals(productTotalPriceInCart,shoppingCartPage.getTotalPriceOfProduct(productInShoppingCart));
+        Assert.assertEquals(productPriceDepedingOnQuantityInDetailPage,getTotalPriceOfProductInShopingCart(productInShoppingCart));
+        Assert.assertEquals(productTotalPriceInCart,getTotalPriceOfProductInShopingCart(productInShoppingCart));
     }
 
 
