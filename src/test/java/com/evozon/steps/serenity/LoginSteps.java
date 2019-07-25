@@ -3,16 +3,16 @@ package com.evozon.steps.serenity;
 import com.evozon.model.RegisterData;
 import com.evozon.model.RegisterInformation;
 import com.evozon.pages.LoginPage;
-import com.evozon.pages.MyAccountPage;
+import com.evozon.pages.HeaderPage;
 import com.evozon.utils.Constants;
-import net.serenitybdd.core.SerenitySystemProperties;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;
 import org.junit.Assert;
 
 public class LoginSteps {
     LoginPage loginPage;
-    MyAccountPage myAccountPage;
+    HeaderPage headerPage;
+    HeaderSteps headerSteps;
 
     RegisterInformation registerInformation;
     RegisterData registerData = new RegisterData();
@@ -51,7 +51,7 @@ public class LoginSteps {
     public void checkThatYouAreLoggedIn() {
 
 
-        Assert.assertTrue("You are not logged in", myAccountPage.isExpectedUrl(Constants.HOST + "/customer/account/"));
+        Assert.assertTrue("You are not logged in", headerPage.containsExpectedUrl(Constants.HOST + "/customer/account/"));
     }
 
     @StepGroup
@@ -61,6 +61,14 @@ public class LoginSteps {
         typePassword(registerInformation.getPassword());
         clickLoginButton();
 
+    }
+
+    public String userEmail, userPassword;
+
+    @StepGroup
+    public void performLoginAndLogoutAndRedirectToLogInPage() {
+        performLogin(userEmail, userPassword);
+        headerSteps.performLogOutAndRedirectToLogInPage();
     }
 
 

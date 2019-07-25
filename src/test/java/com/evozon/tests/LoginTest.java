@@ -1,23 +1,26 @@
 package com.evozon.tests;
 
+import com.evozon.pages.HeaderPage;
+import com.evozon.steps.serenity.HeaderSteps;
 import com.evozon.steps.serenity.LoginSteps;
 import com.evozon.utils.Constants;
-import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.serenitybdd.junit.runners.SerenityRunner;
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
-import net.thucydides.junit.annotations.UseTestDataFrom;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
+import java.io.IOException;
+
+import static net.thucydides.core.steps.stepdata.StepData.withTestDataFrom;
 
 
-//@RunWith(SerenityParameterizedRunner.class)
-//@UseTestDataFrom(value = "src/test/resources/csv/Login.csv" )
 @RunWith(SerenityRunner.class)
 public class LoginTest extends BaseTest {
 
     @Steps
     public LoginSteps loginSteps;
+    @Steps
+    public HeaderSteps headerSteps;
 
     @Test
     public void loginValidCredentials(){
@@ -28,8 +31,20 @@ public class LoginTest extends BaseTest {
 
     }
 
-    //public void loginAsCustomerShouldDisplayAppropiateMessage()
+    @Test
+    public void loginAsCustomerShouldBeOnCorrectUrlCsvWithOneBrowserSession() throws IOException, InterruptedException {
+        loginSteps.openHomepage();
+        withTestDataFrom("src/test/resources/csv/Login.csv").run(loginSteps).performLoginAndLogoutAndRedirectToLogInPage();
+        System.out.println("x");
 
 
+    }
+
+    @Test
+    public void logout() throws InterruptedException {
+        loginValidCredentials();
+        headerSteps.performLogOut();
+
+    }
 
 }
