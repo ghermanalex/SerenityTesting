@@ -72,7 +72,7 @@ public class ShoppingCartPage extends BasePage {
 
 
     public Integer setProductEntityQuantity(ProductEntity product){
-        Integer randomQuantity = new Random().nextInt(5)+1;
+        Integer randomQuantity = new Random().nextInt(3)+1;
         product.setQuantity(randomQuantity);
         return randomQuantity;
     }
