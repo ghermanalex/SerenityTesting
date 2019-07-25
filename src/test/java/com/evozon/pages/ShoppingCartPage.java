@@ -49,6 +49,8 @@ public class ShoppingCartPage extends BasePage {
 
 
 
+
+
     public String getNameOfProduct(WebElementFacade product){
         return getChildWebElementFromParentByCssSelector(product,".product-name a").getText();
     }
@@ -62,8 +64,6 @@ public class ShoppingCartPage extends BasePage {
         String stringPrice = getChildWebElementFromParentByCssSelector(product,".product-cart-total .price").getText();
         return Utils.fromStringToFloat(stringPrice);
     }
-
-
 
 
     public void clickProceedToCheckOutButton(){

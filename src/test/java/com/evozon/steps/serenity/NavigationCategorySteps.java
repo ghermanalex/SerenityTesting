@@ -22,10 +22,10 @@ public class NavigationCategorySteps {
 //        navigationCategoryPage.hoverOverElement(navigationCategoryPage.getRandomMenuItem());
 //    }
 
-    @Step
-    public void clickOnRandomCategoty() {
-        navigationCategoryPage.accessRandomProductList();
-    }
+//    @Step
+//    public void clickOnRandomCategoty() {
+//        navigationCategoryPage.accessRandomProductList();
+//    }
 
 
 }

@@ -41,6 +41,7 @@ public class ProductListingPage extends BasePage {
         return randomProduct;
     }
 
+
     public void clickOnProductImageToSeeDetails()
     {
         WebElementFacade productElement = getWebElementFromList(listAllProductsWithImage,getRandom());
@@ -66,4 +67,34 @@ public class ProductListingPage extends BasePage {
     public void setRandom(Integer random) {
         this.randomProductPostion = random;
     }
+
+
+    public ProductEntity getProductEntityFromProductLisitingPage(String productName) {
+
+        WebElementFacade productFromShoppingCartList = getProductWebElementFromProductListingPage(productName);
+
+        String name = getNameOfProduct(productFromShoppingCartList,"h2 a");
+        Float price = getPriceOfProduct(productFromShoppingCartList,".price");
+
+
+        ProductEntity shoppingCartProduct = new ProductEntity( name, price );
+
+        return shoppingCartProduct;
+    }
+
+
+    public WebElementFacade getProductWebElementFromProductListingPage(String productName){
+        WebElementFacade productFromProductListingPage=null ;
+        for(WebElementFacade prod:listAllProducts){
+            String nameProduct = getChildWebElementFromParentByCssSelector(prod,"h2 a").getText();
+            if(nameProduct.toUpperCase().equals(productName.toUpperCase())){
+                productFromProductListingPage = prod;
+                break;
+            }
+        }
+        return productFromProductListingPage;
+    }
+
+
+
 }

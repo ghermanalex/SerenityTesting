@@ -36,12 +36,12 @@ public class SearchTest extends BaseTest{
 //        searchSteps.checkThatResultPageIsShown(Constants.INVALID_PRODUCT);
 //    }
 
-    @Test
-    public void chooseRandomCategory() {
-        searchSteps.openHomepage();
-        //navigationCategorySteps.hoverOverRandomCategory();
-        navigationCategorySteps.clickOnRandomCategoty();
-    }
+//    @Test
+//    public void chooseRandomCategory() {
+//        searchSteps.openHomepage();
+//        //navigationCategorySteps.hoverOverRandomCategory();
+//        navigationCategorySteps.clickOnRandomCategoty();
+//    }
 
 
 
