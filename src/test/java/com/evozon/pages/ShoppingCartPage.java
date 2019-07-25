@@ -49,6 +49,8 @@ public class ShoppingCartPage extends BasePage {
 
 
 
+
+
     public String getNameOfProduct(WebElementFacade product){
         return getChildWebElementFromParentByCssSelector(product,".product-name a").getText();
     }
@@ -64,15 +66,13 @@ public class ShoppingCartPage extends BasePage {
     }
 
 
-
-
     public void clickProceedToCheckOutButton(){
         proceedToCheckOutButton.click();
     }
 
 
     public Integer setProductEntityQuantity(ProductEntity product){
-        Integer randomQuantity = new Random().nextInt(5)+1;
+        Integer randomQuantity = new Random().nextInt(3)+1;
         product.setQuantity(randomQuantity);
         return randomQuantity;
     }
@@ -89,5 +89,14 @@ public class ShoppingCartPage extends BasePage {
         inputQuantityWebElement.sendKeys(quantityValue.toString() + "\n");
 
     }
+
+    public Float getPriceOfProductInCart(String name){
+        WebElementFacade productFromShoppingCartList = getProductWebElementFromShoppingCartList(name);
+        Float price = getPriceOfProduct(productFromShoppingCartList);
+
+        return price;
+    }
+
+
 
 }

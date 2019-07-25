@@ -1,13 +1,12 @@
 package com.evozon.tests;
 
 import com.evozon.steps.serenity.ProductDetailsSteps;
+import com.evozon.steps.serenity.SearchSteps;
 import com.evozon.steps.serenity.ShoppingCartSteps;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
 
 @RunWith(SerenityRunner.class)
 public class ShoppingCartTest extends BaseTest{
@@ -18,14 +17,19 @@ public class ShoppingCartTest extends BaseTest{
     @Steps
     ShoppingCartSteps shoppingCartSteps;
 
+    @Steps
+    SearchSteps searchSteps;
+
+    private String name,price;
+
     @Test
-    public void verifiyDetailsRandomProduct() {
+    public void verifyDetailsRandomProduct() {
         shoppingCartSteps.openProductDetailsPage();
         shoppingCartSteps.verfiyDetailsProductInShoppingCart();
     }
 
     @Test
-    public void verifiyProductPriceDependingOnQuantity() {
+    public void verifyProductPriceDependingOnQuantity() {
         shoppingCartSteps.openProductDetailsPage();
         shoppingCartSteps.verifyPriceDependinOnRandomQuantity();
     }

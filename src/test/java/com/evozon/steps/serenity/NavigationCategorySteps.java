@@ -29,4 +29,17 @@ public class NavigationCategorySteps {
 //    }
 
 
+//    @Step
+//    public void clickOnRandomCategoty() {
+//        navigationCategoryPage.accessRandomProductList();
+//    }
+
+
+//    @Step
+//    public void clickOnRandomCategoty() {
+//        navigationCategoryPage.accessRandomProductList();
+//    }
+
+
+
 }
