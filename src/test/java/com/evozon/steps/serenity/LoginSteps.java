@@ -18,13 +18,12 @@ public class LoginSteps {
     RegisterData registerData = new RegisterData();
 
     @Step
-    public void openHomepage(){
+    public void openHomepage() {
         loginPage.open();
     }
 
     @Step
-    public void typeEmail(String email)
-    {
+    public void typeEmail(String email) {
         loginPage.typeEmail(email);
     }
 
@@ -34,7 +33,7 @@ public class LoginSteps {
     }
 
     @Step
-    public void clickLoginButton(){
+    public void clickLoginButton() {
         loginPage.clickSubmitButton();
     }
 
@@ -49,7 +48,7 @@ public class LoginSteps {
     }
 
     @Step
-    public void checkThatYouAreLoggedIn(){
+    public void checkThatYouAreLoggedIn() {
 
 
         Assert.assertTrue("You are not logged in", myAccountPage.isExpectedUrl(Constants.HOST + "/customer/account/"));
@@ -64,9 +63,6 @@ public class LoginSteps {
 
     }
 
-    public void checkThatYouAreLoggedIn(String email, String password) {
-        typeEmail(email);
-        typePassword(password);
-        clickLoginButton();
-        Assert.assertTrue("You are not logged in", myAccountPage.isExpectedUrl(Constants.HOST + "/customer/account/"));    }
+
+
 }

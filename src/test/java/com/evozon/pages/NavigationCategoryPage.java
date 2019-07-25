@@ -12,7 +12,11 @@ public class NavigationCategoryPage extends BasePage {
 //        WebElement menuItem = getRandomMenuItem();
 //        hoverOverElement(menuItem);
 //        List<WebElement> subcategoriesOfAnMenuItem = null;
+
 //        if (!menuItem.findElements(By.cssSelector(" ul li")).isEmpty()) {
+
+//        if (!menuItem.findElements(By.cssSelector("level")).isEmpty()) {
+
 //            subcategoriesOfAnMenuItem.add(menuItem);
 //        }
 //        for (WebElement menuitem : subcategoriesOfAnMenuItem) {
@@ -22,7 +26,9 @@ public class NavigationCategoryPage extends BasePage {
 //        if (!subcategoriesOfAnMenuItem.isEmpty()) {
 //
 //
+
 //            Integer indexForSubcategory = Utils.getRandomElementFromWebElemList(subcategoriesOfAnMenuItem);
+
 //            subcategoriesOfAnMenuItem.get(indexForSubcategory).click();
 //        } else menuItem.click();
 //
